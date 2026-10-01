@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DooSi.BaRa — ห้องทำนายไพ่ทาโรต์สายมีม 2026</title>
+    <meta name="description" content="เข้าสู่ห้องทำนายดวงชะตา DooSi.BaRa ตั้งจิตอธิษฐานแล้วเปิดไพ่ 1 ใบ หรือ 3 ใบ พร้อมบันทึกภาพคำทำนายส่งแกล้งเพื่อนได้ทันที!">
+    <meta name="theme-color" content="#120924">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DooSi.BaRa — ห้องทำนายไพ่ทาโรต์สายมีม 2026">
+    <meta property="og:description" content="ตั้งจิตอธิษฐานแล้วเปิดไพ่ 1 ใบ หรือ 3 ใบ พร้อมบันทึกภาพคำทำนายส่งแกล้งเพื่อนได้ทันที!">
+    <meta property="og:image" content="icon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DooSi.BaRa — ห้องทำนายไพ่ทาโรต์สายมีม 2026">
+    <meta name="twitter:description" content="ตั้งจิตอธิษฐานแล้วเปิดไพ่ 1 ใบ หรือ 3 ใบ พร้อมบันทึกภาพคำทำนายส่งแกล้งเพื่อนได้ทันที!">
+    <meta name="twitter:image" content="icon.png">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Cinzel+Decorative:wght@700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20261001_v10">
+    <style>
+        .tarot-deck-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)) !important;
+            gap: 0.95rem !important;
+            max-width: 1240px !important;
+            margin: 0 auto !important;
+            padding: 1rem 0.5rem !important;
+            justify-content: center !important;
+        }
+        @media (min-width: 1024px) {
+            .tarot-deck-grid {
+                grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)) !important;
+                gap: 1.05rem !important;
+            }
+        }
+        @media (max-width: 600px) {
+            .tarot-deck-grid {
+                grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)) !important;
+                gap: 0.6rem !important;
+            }
+        }
+
+        /* Direct Cache-Proof Fan Ribbon Styles */
+        .deck-view-bar {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 0.8rem !important;
+            max-width: 1240px !important;
+            margin: 0 auto 1.1rem !important;
+            padding: 0 0.5rem !important;
+        }
+        .view-switch-pills {
+            display: flex !important;
+            background: rgba(18, 9, 36, 0.75) !important;
+            border: 1px solid rgba(229, 193, 88, 0.35) !important;
+            border-radius: 999px !important;
+            padding: 3px !important;
+        }
+        .view-pill {
+            background: transparent !important;
+            border: none !important;
+            color: #bbaed6 !important;
+            font-size: 0.84rem !important;
+            font-family: 'Prompt', sans-serif !important;
+            padding: 0.42rem 0.95rem !important;
+            border-radius: 999px !important;
+            cursor: pointer !important;
+            transition: all 0.25s ease !important;
+        }
+        .view-pill.active {
+            background: linear-gradient(135deg, rgba(229, 193, 88, 0.35), rgba(184, 107, 255, 0.35)) !important;
+            border: 1px solid #e5c158 !important;
+            color: #fdf0a6 !important;
+            font-weight: 600 !important;
+            box-shadow: 0 0 14px rgba(229, 193, 88, 0.35) !important;
+        }
+        .fan-navigator-bar {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.6rem !important;
+        }
+        .btn-fan-nav {
+            background: rgba(22, 11, 46, 0.75) !important;
+            border: 1px solid rgba(229, 193, 88, 0.35) !important;
+            color: #fdf0a6 !important;
+            font-size: 0.82rem !important;
+            font-family: 'Prompt', sans-serif !important;
+            padding: 0.35rem 0.85rem !important;
+            border-radius: 999px !important;
+            cursor: pointer !important;
+        }
+        .fan-indicator-pill {
+            font-size: 0.82rem !important;
+            color: #fdf0a6 !important;
+            background: rgba(229, 193, 88, 0.1) !important;
+            border: 1px solid rgba(229, 193, 88, 0.25) !important;
+            border-radius: 999px !important;
+            padding: 0.32rem 0.85rem !important;
+            font-weight: 500 !important;
+        }
+        .tarot-spread-container.view-fan {
+            max-width: 100vw !important;
+            overflow: hidden !important;
+            position: relative !important;
+            padding: 0.5rem 0 !important;
+        }
+        .tarot-spread-container.view-fan .tarot-deck-grid {
+            display: flex !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            scroll-snap-type: x proximity !important;
+            -webkit-overflow-scrolling: touch !important;
+            padding: 2.2rem 2.8rem 2.2rem !important;
+            gap: 0 !important;
+            max-width: 100% !important;
+            justify-content: flex-start !important;
+            cursor: grab !important;
+            user-select: none !important;
+        }
+        .tarot-spread-container.view-fan .deck-card-slot {
+            flex: 0 0 96px !important;
+            width: 96px !important;
+            height: 152px !important;
+            margin-right: -42px !important;
+            margin-left: 0 !important;
+            scroll-snap-align: center !important;
+            box-shadow: -6px 8px 18px rgba(0, 0, 0, 0.75) !important;
+        }
+        .tarot-spread-container.view-fan .deck-card-slot:hover {
+            transform: translateY(-28px) scale(1.15) !important;
+            z-index: 50 !important;
+            margin-right: 6px !important;
+            margin-left: 6px !important;
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 18px rgba(229, 193, 88, 0.6)) !important;
+        }
+        .tarot-spread-container.view-fan .deck-card-slot.selected {
+            transform: translateY(-38px) scale(1.18) !important;
+            z-index: 60 !important;
+            margin-right: 14px !important;
+            margin-left: 14px !important;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 25px #e5c158) !important;
+        }
+        @media (max-width: 600px) {
+            .tarot-spread-container.view-fan .deck-card-slot {
+                flex: 0 0 82px !important;
+                width: 82px !important;
+                height: 130px !important;
+                margin-right: -36px !important;
+            }
+            .tarot-spread-container.view-fan .tarot-deck-grid {
+                padding: 1.8rem 1.4rem 1.6rem !important;
+            }
+        }
+
+        /* Altar Grid & Energy Legend Bar */
+        .altar-grid {
+            display: grid !important;
+            grid-template-columns: 1fr auto !important;
+            gap: 1.2rem !important;
+            align-items: end !important;
+        }
+        @media (max-width: 768px) {
+            .altar-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        .energy-legend-bar {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 0.45rem !important;
+            flex-wrap: nowrap !important;
+            white-space: nowrap !important;
+            background: rgba(14, 7, 28, 0.7) !important;
+            border: 1px solid rgba(229, 193, 88, 0.25) !important;
+            border-radius: 999px !important;
+            padding: 0.42rem 0.85rem !important;
+            margin-bottom: 0.2rem !important;
+        }
+        .legend-label {
+            font-size: 0.82rem !important;
+            color: #bbaed6 !important;
+            white-space: nowrap !important;
+        }
+        .legend-tag {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 0.28rem !important;
+            font-size: 0.8rem !important;
+            font-weight: 600 !important;
+            white-space: nowrap !important;
+            padding: 0.2rem 0.6rem !important;
+            border-radius: 999px !important;
+        }
+        .legend-tag.positive {
+            background: rgba(46, 213, 115, 0.15) !important;
+            color: #7bed9f !important;
+            border: 1px solid rgba(46, 213, 115, 0.4) !important;
+        }
+        .legend-tag.neutral {
+            background: rgba(255, 195, 18, 0.15) !important;
+            color: #ffeaa7 !important;
+            border: 1px solid rgba(255, 195, 18, 0.4) !important;
+        }
+        .legend-tag.negative {
+            background: rgba(255, 71, 87, 0.15) !important;
+            color: #ff7f8a !important;
+            border: 1px solid rgba(255, 71, 87, 0.4) !important;
+        }
+        @media (max-width: 600px) {
+            .energy-legend-bar {
+                flex-wrap: wrap !important;
+                border-radius: 14px !important;
+                padding: 0.5rem 0.75rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+
+    <div class="app-wrapper">
+        <!-- Top Navigation -->
+        <nav class="top-bar">
+            <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+                <a href="index.html" class="btn-pill" style="text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:0.45rem;">
+                    <img src="icon.png" alt="DooSi.BaRa Mascot" style="width:22px; height:22px; border-radius:50%; object-fit:cover; border:1px solid var(--gold-light);">
+                    ← กลับแดชบอร์ดหลัก
+                </a>
+                <span class="badge-general" id="activeModeBadge" style="padding:0.35rem 0.85rem; border-radius:999px; font-size:0.8rem; font-weight:600;">
+                    🔮 กำลังโหลด...
+                </span>
+            </div>
+
+            <div class="top-actions">
+                <button type="button" class="btn-pill mode-pill-btn" data-target-mode="general">
+                    🔮 หมวดทั่วไป
+                </button>
+                <button type="button" class="btn-pill mode-pill-btn" data-target-mode="love">
+                    💘 ความรัก
+                </button>
+                <button type="button" class="btn-pill mode-pill-btn" data-target-mode="money">
+                    💸 การเงิน
+                </button>
+                <button type="button" class="btn-pill" id="btnOpenGallery">
+                    🃏 ดูไพ่ทั้งหมดในหมวดนี้
+                </button>
+                <button type="button" class="btn-pill sound-active" id="btnToggleSound">
+                    <span class="bgm-wave-anim">🎶</span> เพลงบรรยากาศ: เปิด
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mode Hero Header -->
+        <header class="hero-header">
+            <div class="celestial-emblem" aria-hidden="true" style="background:transparent; border:none; box-shadow:none;">
+                <img src="icon.png" alt="DooSi.BaRa Mascot" class="hero-mascot-img">
+            </div>
+            <h1 class="site-title" id="modeHeaderTitle">โหมดดวงทั่วไป & ภาพรวมชีวิต</h1>
+            <span class="site-title-thai">✦ DooSi.BaRa Tarot Chamber ✦</span>
+            <p class="site-subtitle" id="modeHeaderDesc">
+                ตั้งจิตอธิษฐานแล้วเปิดรับคำอวยพรและคำทำนายภาพรวมชีวิตประจำวัน จากวลีไวรัลแห่งปี 2026
+            </p>
+        </header>
+
+        <!-- Altar Control Panel -->
+        <section class="altar-panel" aria-label="แท่นทำนายดวงชะตา">
+            <div class="altar-grid">
+                <div class="field-group">
+                    <label for="friendNameInput">👤 ชื่อคนเปิดไพ่ / ชื่อเพื่อน (เว้นว่างได้)</label>
+                    <input
+                        type="text"
+                        id="friendNameInput"
+                        class="mystic-input"
+                        placeholder="พิมพ์ชื่อตัวเอง หรือชื่อเพื่อนที่อยากส่งไปแกล้ง..."
+                        maxlength="45"
+                    >
+                </div>
+                <div class="field-group" style="display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-end;">
+                    <div class="energy-legend-bar">
+                        <span class="legend-label">พลังงานไพ่:</span>
+                        <span class="legend-tag positive">🟢 พลังบวก</span>
+                        <span class="legend-tag neutral">🟡 พลังกลาง</span>
+                        <span class="legend-tag negative">🔴 พลังลบ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spread-mode-bar">
+                <div class="mode-tabs" role="tablist">
+                    <button type="button" class="mode-tab active" data-mode="1">
+                        🃏 เปิดไพ่ 1 ใบ (ใบเดียวรู้เรื่อง)
+                    </button>
+                    <button type="button" class="mode-tab" data-mode="3">
+                        🎴 เปิดไพ่ 3 ใบ (อดีต • ปัจจุบัน • อนาคต)
+                    </button>
+                </div>
+                <div class="action-buttons">
+                    <button type="button" class="btn-outline-gold" id="btnShuffleDeck">
+                        🔀 สับไพ่ใหม่
+                    </button>
+                    <button type="button" class="btn-gold" id="btnQuickDraw">
+                        ✨ ให้จักรวาลสุ่มหยิบให้!
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Oracle Prompt -->
+        <div class="oracle-prompt">
+            <span class="sparkle">✦</span>
+            <span id="oraclePromptText">ตั้งจิตอธิษฐาน แล้วกดเลือกไพ่ทาโรต์ 1 ใบด้วยตัวเอง เพื่อรับคำทำนายแห่งโชคชะตา</span>
+            <span class="sparkle">✦</span>
+        </div>
+
+        <!-- Deck View Switcher & Navigator -->
+        <div class="deck-view-bar">
+            <div class="view-switch-pills">
+                <button type="button" class="view-pill active" id="btnViewFan" data-view="fan">
+                    🎴 คลี่พัดไพ่แนวนอน (ปัดซ้าย-ขวา)
+                </button>
+                <button type="button" class="view-pill" id="btnViewGrid" data-view="grid">
+                    📱 แผ่เต็มกระดาน (ตาราง)
+                </button>
+            </div>
+            <div class="fan-navigator-bar" id="fanNavigatorBar">
+                <button type="button" class="btn-fan-nav" id="btnFanLeft" title="เลื่อนซ้าย">◀ ปัดซ้าย</button>
+                <div class="fan-indicator-pill" id="fanIndicatorPill">
+                    <span id="fanCardCounterText">🃏 ปัดเลือกจากทั้ง 56 ใบ</span>
+                </div>
+                <button type="button" class="btn-fan-nav" id="btnFanRight" title="เลื่อนขวา">ปัดขวา ▶</button>
+            </div>
+        </div>
+
+        <!-- Interactive Tarot Deck Spread -->
+        <section class="tarot-spread-container view-fan" aria-label="สำรับไพ่ทาโรต์">
+            <div class="tarot-deck-grid" id="tarotDeckGrid"></div>
+        </section>
+
+        <!-- Revealed Reading Stage -->
+        <section class="reading-stage" id="readingStage" aria-live="polite"></section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>✦ <strong>DooSi.BaRa (ดูสิ.บาร่า)</strong> — สำนักไพ่ทาโรต์สายมีม 2026 ✦</p>
+            <p style="margin-top:0.3rem; font-size:0.78rem;">คำเตือน: ดวงนี้ขึ้นอยู่กับนิ้วที่เพื่อนจิ้มล้วนๆ โปรดใช้วิจารณญาณในการขำ</p>
+        </footer>
+    </div>
+
+    <!-- Modal: All Cards Gallery -->
+    <div class="modal-backdrop" id="galleryModal" role="dialog" aria-modal="true">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title" id="galleryModalTitle">🃏 ไพ่ทั้งหมดในสำรับนี้</div>
+                <button type="button" class="btn-close-modal" onclick="document.getElementById('galleryModal').classList.remove('open')">✕</button>
+            </div>
+            <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">
+                คลิกที่การ์ดใบใดก็ได้เพื่อเปิดอ่านคำจำกัดความ คำทำนาย และคำอวยพรของไพ่ใบนั้นทันที:
+            </p>
+            <div class="gallery-grid" id="galleryGridContainer"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="mystic-toast" id="mysticToast" role="status" aria-live="polite"></div>
+
+    <!-- Load Dedicated Data Decks and Reading Engine -->
+    <script src="data/general.js?v=20261001_v11"></script>
+    <script src="data/love.js?v=20261001_v11"></script>
+    <script src="data/money.js?v=20261001_v11"></script>
+    <script src="reading.js?v=20261001_v11"></script>
+</body>
+</html>

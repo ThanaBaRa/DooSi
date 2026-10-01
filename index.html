@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DooSi.BaRa (ดูสิ.บาร่า) — แดชบอร์ดสำนักไพ่ทาโรต์สายมีม 2026</title>
+    <meta name="description" content="DooSi.BaRa (ดูสิ.บาร่า) เว็บเปิดไพ่ทาโรต์ดูดวงขำๆ แกล้งเพื่อน รับคำอวยพรด้วยวลีไวรัลปี 2026 แยกหมวดทั่วไป ความรัก การเงิน พร้อมระบบพลังงาน 3 รูปแบบ">
+    <meta name="theme-color" content="#120924">
+    <!-- Open Graph / Social Sharing (LINE, Facebook, X) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DooSi.BaRa (ดูสิ.บาร่า) — สำนักไพ่ทาโรต์สายมีม 2026">
+    <meta property="og:description" content="เปิดไพ่ดูดวงขำๆ แกล้งเพื่อน รับคำอวยพรด้วยวลีไวรัลปี 2026 แยกหมวดทั่วไป ความรัก การเงิน 84+ ใบ!">
+    <meta property="og:image" content="icon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DooSi.BaRa (ดูสิ.บาร่า) — สำนักไพ่ทาโรต์สายมีม 2026">
+    <meta name="twitter:description" content="เปิดไพ่ดูดวงขำๆ แกล้งเพื่อน รับคำอวยพรด้วยวลีไวรัลปี 2026 แยกหมวดทั่วไป ความรัก การเงิน">
+    <meta name="twitter:image" content="icon.png">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Cinzel+Decorative:wght@700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20261001_v10">
+
+    <!-- Direct Fallback / Cache-Proof Essential Layout Styles -->
+    <style>
+        .dashboard-stats-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)) !important;
+            gap: 1.1rem !important;
+            margin: 1.5rem auto 3rem !important;
+            max-width: 1180px !important;
+        }
+        @media (min-width: 1024px) {
+            .dashboard-stats-grid {
+                grid-template-columns: repeat(5, 1fr) !important;
+            }
+        }
+        .stat-box {
+            background: linear-gradient(145deg, rgba(35, 17, 70, 0.85) 0%, rgba(16, 7, 36, 0.95) 100%) !important;
+            border: 1.5px solid rgba(229, 193, 88, 0.32) !important;
+            border-radius: 20px !important;
+            padding: 1.35rem 1.15rem !important;
+            text-align: center !important;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6) !important;
+            backdrop-filter: blur(14px) !important;
+            transition: all 0.3s ease !important;
+        }
+        .stat-box:hover {
+            transform: translateY(-5px) !important;
+            border-color: #e5c158 !important;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75), 0 0 25px rgba(229, 193, 88, 0.4) !important;
+        }
+        .modes-portal-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+            gap: 2rem !important;
+            margin-bottom: 4rem !important;
+        }
+        .mode-portal-card {
+            background: linear-gradient(165deg, rgba(32, 16, 64, 0.92) 0%, rgba(14, 6, 30, 0.98) 100%) !important;
+            border: 2px solid rgba(229, 193, 88, 0.38) !important;
+            border-radius: 26px !important;
+            padding: 2.2rem 1.8rem !important;
+            text-decoration: none !important;
+            color: #f7f3ff !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65) !important;
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1) !important;
+            position: relative !important;
+        }
+        .mode-portal-card:hover {
+            transform: translateY(-8px) scale(1.02) !important;
+            border-color: #fdf0a6 !important;
+            box-shadow: 0 28px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(229, 193, 88, 0.45) !important;
+        }
+        .portal-general:hover {
+            box-shadow: 0 28px 60px rgba(0, 0, 0, 0.85), 0 0 45px rgba(184, 107, 255, 0.5) !important;
+            border-color: #d199ff !important;
+        }
+        .portal-love:hover {
+            box-shadow: 0 28px 60px rgba(0, 0, 0, 0.85), 0 0 45px rgba(255, 110, 199, 0.5) !important;
+            border-color: #ff9ee2 !important;
+        }
+        .portal-money:hover {
+            box-shadow: 0 28px 60px rgba(0, 0, 0, 0.85), 0 0 45px rgba(92, 225, 230, 0.5) !important;
+            border-color: #7fedf2 !important;
+        }
+        .portal-top-bar {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: 1.2rem !important;
+        }
+        .portal-enter-btn {
+            width: 100% !important;
+            padding: 0.85rem 1.2rem !important;
+            background: linear-gradient(135deg, rgba(229, 193, 88, 0.22), rgba(184, 107, 255, 0.22)) !important;
+            border: 1.5px solid #e5c158 !important;
+            border-radius: 14px !important;
+            color: #fdf0a6 !important;
+            font-size: 1rem !important;
+            font-weight: 600 !important;
+            text-align: center !important;
+            transition: all 0.3s ease !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0.6rem !important;
+        }
+        .mode-portal-card:hover .portal-enter-btn {
+            background: linear-gradient(135deg, #f3d470, #c89629) !important;
+            color: #160a28 !important;
+            box-shadow: 0 0 25px rgba(229, 193, 88, 0.5) !important;
+        }
+        .system-guide-card {
+            background: linear-gradient(165deg, rgba(24, 11, 48, 0.9) 0%, rgba(10, 4, 22, 0.96) 100%) !important;
+            border: 2px solid rgba(229, 193, 88, 0.35) !important;
+            border-radius: 28px !important;
+            padding: 2.8rem 2.2rem !important;
+            margin-bottom: 3.5rem !important;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 35px rgba(184, 107, 255, 0.15) !important;
+        }
+        .guide-step-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)) !important;
+            gap: 1.5rem !important;
+            margin-top: 2.2rem !important;
+        }
+        .guide-step-item {
+            background: rgba(15, 7, 32, 0.8) !important;
+            border: 1.5px solid rgba(229, 193, 88, 0.22) !important;
+            border-radius: 18px !important;
+            padding: 1.5rem 1.25rem !important;
+            text-align: center !important;
+        }
+        .step-num {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 44px !important;
+            height: 44px !important;
+            border-radius: 50% !important;
+            background: linear-gradient(135deg, rgba(229, 193, 88, 0.25), rgba(184, 107, 255, 0.25)) !important;
+            border: 2px solid #e5c158 !important;
+            color: #fdf0a6 !important;
+            font-family: 'Cinzel Decorative', serif !important;
+            font-weight: 700 !important;
+            font-size: 1.15rem !important;
+            margin-bottom: 0.9rem !important;
+        }
+        .tone-explain-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+            gap: 1.4rem !important;
+            margin-top: 1.8rem !important;
+        }
+        .tone-explain-card {
+            border-radius: 20px !important;
+            padding: 1.45rem 1.35rem !important;
+        }
+        .tone-explain-card.positive {
+            background: linear-gradient(160deg, rgba(46, 213, 115, 0.12), rgba(15, 7, 32, 0.85)) !important;
+            border: 1.5px solid rgba(46, 213, 115, 0.45) !important;
+        }
+        .tone-explain-card.neutral {
+            background: linear-gradient(160deg, rgba(255, 195, 18, 0.12), rgba(15, 7, 32, 0.85)) !important;
+            border: 1.5px solid rgba(255, 195, 18, 0.45) !important;
+        }
+        .tone-explain-card.negative {
+            background: linear-gradient(160deg, rgba(255, 71, 87, 0.12), rgba(15, 7, 32, 0.85)) !important;
+            border: 1.5px solid rgba(255, 71, 87, 0.45) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Celestial Starfield -->
+    <canvas id="starfield"></canvas>
+
+    <div class="app-wrapper">
+        <!-- Top Navigation Bar -->
+        <nav class="top-bar">
+            <div class="brand-mini">
+                <img src="icon.png" alt="DooSi.BaRa Mascot" class="brand-mascot-img">
+                <span>DooSi<span class="dot">.</span>BaRa</span>
+                <span style="font-family:'Prompt',sans-serif; font-size:0.8rem; color:var(--text-muted); font-weight:400;">(ดูสิ.บาร่า)</span>
+            </div>
+            <div class="top-actions">
+                <button type="button" class="btn-pill" id="btnOpenGallery">
+                    🃏 สำรวจไพ่ทั้งหมด (84+ ใบ)
+                </button>
+                <a href="reading.html?mode=general" class="btn-pill" style="text-decoration:none; color:var(--gold-light); font-weight:600;">
+                    ✨ เข้าห้องทำนายทันที
+                </a>
+                <button type="button" class="btn-pill sound-active" id="btnToggleSound">
+                    <span class="bgm-wave-anim">🎶</span> เพลงบรรยากาศ: เปิด
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="hero-header">
+            <div class="celestial-emblem" aria-hidden="true" style="background:transparent; border:none; box-shadow:none;">
+                <img src="icon.png" alt="DooSi.BaRa Mascot" class="hero-mascot-img">
+            </div>
+            <h1 class="site-title">DooSi.BaRa</h1>
+            <span class="site-title-thai">✦ สำนักไพ่ทาโรต์ “ดูสิ.บาร่า” 2026 ✦</span>
+            <p class="site-subtitle">
+                เว็บแอปพลิเคชันดูดวงสายมีมและคำอวยพรสุดปั่น สับไพ่วลีฮิตติดกระแสโซเชียลไทย<br>
+                ให้คุณและเพื่อนเลือกไพ่ด้วยนิ้วตัวเอง สัมผัสพลังงานจักรวาลทั้งสายอวยยศ สายเตือนสติ และสายแกงเพื่อน!
+            </p>
+            <span class="badge-2026">⚡ THAI VIRAL TAROT 2026 EDITION • 3 INDEPENDENT DECKS</span>
+
+            <!-- Real-Time Live Player Counter Strip -->
+            <div class="live-counter-strip" aria-label="สถิติผู้เปิดไพ่แบบเรียลไทม์">
+                <div class="live-counter-pill pulse-active">
+                    <span class="live-pulse-dot" aria-hidden="true"></span>
+                    <span>กำลังเปิดไพ่ขณะนี้: <strong id="liveOnlineCount" class="live-glow-val">28</strong> คน</span>
+                </div>
+                <div class="live-counter-divider" aria-hidden="true">✦</div>
+                <div class="live-counter-pill">
+                    <span>👥 เปิดคำทำนายสะสม: <strong id="liveTotalReadings" class="live-glow-val">28,540</strong> ครั้ง</span>
+                </div>
+                <div class="live-counter-divider" aria-hidden="true">✦</div>
+                <div class="live-counter-pill">
+                    <span>📅 วันนี้เปิดไปแล้ว: <strong id="liveTodayReadings" class="live-glow-val">1,280</strong> ครั้ง</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Overview Dashboard Stats -->
+        <div class="dashboard-stats-grid">
+            <div class="stat-box highlight-player-stat">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number" id="statPlayerCount">28,540+</div>
+                <div class="stat-title">สถิติคนเล่นสะสม</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">🃏</div>
+                <div class="stat-number" id="statTotalCards">84+</div>
+                <div class="stat-title">ไพ่วลีไวรัลทั้งหมด</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">🔮</div>
+                <div class="stat-number" id="statGeneralCards">56 ใบ</div>
+                <div class="stat-title">หมวดทั่วไป & รายวัน</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">💘</div>
+                <div class="stat-number" id="statLoveCards">16 ใบ</div>
+                <div class="stat-title">หมวดดวงความรัก</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">💸</div>
+                <div class="stat-number" id="statMoneyCards">12 ใบ</div>
+                <div class="stat-title">หมวดการเงิน & งาน</div>
+            </div>
+        </div>
+
+        <!-- Mode Portals Section -->
+        <div class="section-heading-center">
+            <h2>🧭 เลือกหมวดการดูดวงชะตา</h2>
+            <p>คลิกเลือกประตูมิติที่ต้องการ เพื่อเข้าสู่ห้องสับไพ่และเปิดคำทำนายเฉพาะทาง</p>
+        </div>
+
+        <section class="modes-portal-grid" aria-label="เลือกโหมดการดูดวง">
+            <!-- Mode 1: General -->
+            <a href="reading.html?mode=general" class="mode-portal-card portal-general" aria-label="เข้าสู่ห้องทำนายดวงทั่วไป">
+                <div>
+                    <div class="portal-top-bar">
+                        <span class="portal-badge badge-general">🔮 สำรับหลัก 56 ใบ</span>
+                        <span class="portal-roman">DECK • I</span>
+                    </div>
+                    <div class="portal-icon">🔮</div>
+                    <h3 class="portal-title">หมวดดวงทั่วไป & รายวัน</h3>
+                    <div class="portal-subtitle">GENERAL & DAILY FORTUNE</div>
+                    <p class="portal-desc">
+                        ดูภาพรวมชีวิตประจำวัน รับคำอวยพรสุดปัง หรือส่งไปแกล้งเพื่อนขำๆ รวมวลีฮิตแห่งปี 2026 ครบครันทุกเฉดอารมณ์ ทั้งสายอวยยศ เตือนสติ และสายแกงเพื่อน
+                    </p>
+                    <div class="portal-sample-tags">
+                        <span class="sample-tag">ให้เลยหละ</span>
+                        <span class="sample-tag">แอ๊บว้าว</span>
+                        <span class="sample-tag">แก้วมังกร</span>
+                        <span class="sample-tag">ตี5 45</span>
+                        <span class="sample-tag">ดื้อสบู่</span>
+                        <span class="sample-tag">เอาให้โฮ่ง</span>
+                        <span class="sample-tag">สภาพพพ!</span>
+                        <span class="sample-tag">ทุกปัญหามีกูเสมอ</span>
+                    </div>
+                </div>
+                <div class="portal-enter-btn">
+                    <span>เข้าสู่ห้องทำนายหมวดทั่วไป</span>
+                    <span class="portal-arrow">➔</span>
+                </div>
+            </a>
+
+            <!-- Mode 2: Love -->
+            <a href="reading.html?mode=love" class="mode-portal-card portal-love" aria-label="เข้าสู่ห้องทำนายความรัก">
+                <div>
+                    <div class="portal-top-bar">
+                        <span class="portal-badge badge-love">💘 สำรับความรัก 16 ใบ</span>
+                        <span class="portal-roman">DECK • II</span>
+                    </div>
+                    <div class="portal-icon">💘</div>
+                    <h3 class="portal-title">หมวดดวงความรัก & คนคุย</h3>
+                    <div class="portal-subtitle">LOVE & SITUATIONSHIP</div>
+                    <p class="portal-desc">
+                        คนคุยหรือคนคุก? ตอบแชทกี่โมง? หวาน 100 แบบจริงใจหรือหยอดไปเรื่อย? เช็กสถานะหัวใจว่ากำลังจะเจอ "ไทป์โกลเด้น" หรือกำลังจะเจอ "เซ๊ะตุ้มเล้ง"
+                    </p>
+                    <div class="portal-sample-tags">
+                        <span class="sample-tag">คนคุยหรือคนคุก</span>
+                        <span class="sample-tag">ไทป์โกลเด้น</span>
+                        <span class="sample-tag">หวาน 100</span>
+                        <span class="sample-tag">เวลากะเทย</span>
+                        <span class="sample-tag">กี่โมง</span>
+                        <span class="sample-tag">ขอคนไม่เล่น</span>
+                    </div>
+                </div>
+                <div class="portal-enter-btn">
+                    <span>เข้าสู่ห้องทำนายหมวดความรัก</span>
+                    <span class="portal-arrow">➔</span>
+                </div>
+            </a>
+
+            <!-- Mode 3: Money & Career -->
+            <a href="reading.html?mode=money" class="mode-portal-card portal-money" aria-label="เข้าสู่ห้องทำนายการเงิน">
+                <div>
+                    <div class="portal-top-bar">
+                        <span class="portal-badge badge-money">💸 สำรับการเงิน 12 ใบ</span>
+                        <span class="portal-roman">DECK • III</span>
+                    </div>
+                    <div class="portal-icon">💸</div>
+                    <h3 class="portal-title">หมวดดวงการเงิน & การงาน</h3>
+                    <div class="portal-subtitle">MONEY & CAREER PROVIDENCE</div>
+                    <p class="portal-desc">
+                        รวยกี่โมง? งานงอกตอนห้าโมงเย็นหรือโบนัสก้อนโต? เช็กสถานะกระเป๋าตังค์ โอนไวใจนิ่ง หรือเตรียมอุทาน "วอดส์ เสียเงินอีกละ!" มีมการเงินสายเรียล
+                    </p>
+                    <div class="portal-sample-tags">
+                        <span class="sample-tag">ตาหลุด</span>
+                        <span class="sample-tag">โอนไวใจนิ่ง</span>
+                        <span class="sample-tag">วอดส์ เสียเงินอีกละ</span>
+                        <span class="sample-tag">สู้ชีวิตแต่ชีวิตสู้กลับ</span>
+                        <span class="sample-tag">2เต็ม10</span>
+                        <span class="sample-tag">แพ้เสียงในหัว</span>
+                    </div>
+                </div>
+                <div class="portal-enter-btn">
+                    <span>เข้าสู่ห้องทำนายหมวดการเงิน</span>
+                    <span class="portal-arrow">➔</span>
+                </div>
+            </a>
+        </section>
+
+        <!-- System Architecture & How It Works -->
+        <section class="system-guide-card">
+            <div style="text-align:center;">
+                <h3 style="font-size:1.75rem; color:var(--gold-light); margin-bottom:0.5rem; text-shadow:0 0 20px rgba(229,193,88,0.4);">
+                    ✨ แนะนำระบบ & วิธีการเปิดไพ่ DooSi.BaRa
+                </h3>
+                <p style="color:var(--text-muted); font-size:0.95rem; max-width:700px; margin:0 auto; line-height:1.65;">
+                    ระบบไพ่ทาโรต์สายมีมที่สร้างขึ้นเพื่อให้คุณและเพื่อนได้สนุกสนานร่วมกัน โดยให้ผู้เปิดไพ่เลือกการ์ดด้วยตนเองแบบสุ่มแท้จริง 100%
+                </p>
+            </div>
+
+            <!-- Steps Grid -->
+            <div class="guide-step-grid">
+                <div class="guide-step-item">
+                    <div class="step-num">1</div>
+                    <h4>เลือกหมวดที่ต้องการ</h4>
+                    <p>เลือกจาก 3 สำรับเฉพาะทาง: ดวงทั่วไป & รายวัน, ดวงความรัก, หรือดวงการเงินและการงาน</p>
+                </div>
+                <div class="guide-step-item">
+                    <div class="step-num">2</div>
+                    <h4>สลักชื่อผู้รับคำทำนาย</h4>
+                    <p>พิมพ์ชื่อตัวเองหรือชื่อเพื่อน เพื่อให้ชื่อสลักลงบนการ์ดและบันทึกลงรูปภาพได้แบบเฉพาะตัว</p>
+                </div>
+                <div class="guide-step-item">
+                    <div class="step-num">3</div>
+                    <h4>เลือกรูปแบบ & จิ้มไพ่</h4>
+                    <p>เลือกเปิดแบบ 1 ใบ (ใบเดียวรู้เรื่อง) หรือ 3 ใบ (อดีต • ปัจจุบัน • อนาคต) แล้วใช้นิ้วจิ้มเลือกไพ่ที่ถูกชะตา</p>
+                </div>
+                <div class="guide-step-item">
+                    <div class="step-num">4</div>
+                    <h4>รับคำทำนาย & บันทึกแชร์</h4>
+                    <p>ชมการพลิกการ์ด 3D พร้อมเสียงกระดิ่งมนตรา บันทึกเป็นการ์ดรูปภาพ PNG ส่งลงกลุ่ม LINE หรือ IG Story ได้ทันที</p>
+                </div>
+            </div>
+
+            <!-- 3 Energy Tones System -->
+            <div style="margin-top:3rem; padding-top:2.2rem; border-top:1px dashed rgba(229,193,88,0.28);">
+                <div style="text-align:center; margin-bottom:1.5rem;">
+                    <h4 style="font-size:1.35rem; color:var(--gold-light);">
+                        ⚡ ระบบ 3 ระดับพลังงานแห่งโชคชะตา (Energy Tones)
+                    </h4>
+                    <p style="color:var(--text-muted); font-size:0.92rem; margin-top:0.3rem;">
+                        การ์ดทุกใบในสำนัก ดูสิ.บาร่า ได้รับการคัดสรรคลื่นพลังงานออกเป็น 3 หมวดหมู่ชัดเจน:
+                    </p>
+                </div>
+
+                <div class="tone-explain-grid">
+                    <div class="tone-explain-card positive">
+                        <h4>🟢 พลังงานบวก (Positive Aura)</h4>
+                        <p>
+                            <strong>สายอวยยศ & ปังปุริเย่:</strong> ไพ่ที่ให้กำลังใจ ชื่นชมในความสามารถ ความสวย และโชคลาภที่กำลังพุ่งเข้าหา
+                        </p>
+                        <div class="tone-chips">
+                            <span class="tone-chip">ให้เลยหละ</span>
+                            <span class="tone-chip">เต็ม10ไม่หัก</span>
+                            <span class="tone-chip">จึ้งมากแม่</span>
+                            <span class="tone-chip">ชีเสิร์ฟ</span>
+                            <span class="tone-chip">ใจฟู</span>
+                            <span class="tone-chip">ตาหลุด</span>
+                        </div>
+                    </div>
+
+                    <div class="tone-explain-card neutral">
+                        <h4>🟡 พลังงานกลาง (Neutral Aura)</h4>
+                        <p>
+                            <strong>สายเตือนสติ & ดึงสติ:</strong> ไพ่ที่สะท้อนความจริงอันซับซ้อน เตือนให้สังเกตคนรอบข้าง และดึงสติก่อนทำอะไรหลุดลอย
+                        </p>
+                        <div class="tone-chips">
+                            <span class="tone-chip">แอ๊บว้าว</span>
+                            <span class="tone-chip">ตี5 45</span>
+                            <span class="tone-chip">กี่โมง</span>
+                            <span class="tone-chip">สารตั้งต้น</span>
+                            <span class="tone-chip">เวลากะเทย</span>
+                            <span class="tone-chip">มันจะไอ้นั่น</span>
+                        </div>
+                    </div>
+
+                    <div class="tone-explain-card negative">
+                        <h4>🔴 พลังงานลบ (Negative Aura)</h4>
+                        <p>
+                            <strong>สายแกงเพื่อน & สู้กลับ:</strong> ไพ่ขำขันที่สะท้อนจังหวะชีวิตสู้กลับ ความป่วน ความเหนื่อย หรือความจริงที่เพื่อนไม่กล้าบอกตรงๆ
+                        </p>
+                        <div class="tone-chips">
+                            <span class="tone-chip">ดื้อสบู่</span>
+                            <span class="tone-chip">แก้วมังกร</span>
+                            <span class="tone-chip">แพ้เสียงในหัว</span>
+                            <span class="tone-chip">เซ๊ะตุ้มเล้ง</span>
+                            <span class="tone-chip">สภาพพพ!</span>
+                            <span class="tone-chip">ทุกปัญหามีกูเสมอ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>✦ <strong>DooSi.BaRa (ดูสิ.บาร่า)</strong> — สำนักไพ่ทาโรต์สายมีม & การ์ดอวยพรแกล้งเพื่อน 2026 ✦</p>
+            <p style="margin-top:0.3rem; font-size:0.78rem;">
+                คำเตือน: ความแม่นยำขึ้นอยู่กับนิ้วที่เพื่อนจิ้มและจิตที่ตั้งมั่น โปรดใช้วิจารณญาณในการส่งแกล้งเพื่อนในกลุ่ม
+            </p>
+        </footer>
+    </div>
+
+    <!-- Modal 1: Master Gallery (All Decks Explorer) -->
+    <div class="modal-backdrop" id="galleryModal" role="dialog" aria-modal="true">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">🃏 สำรวจไพ่วลีไวรัลทั้งหมดใน DooSi.BaRa</div>
+                <button type="button" class="btn-close-modal" onclick="document.getElementById('galleryModal').classList.remove('open')">✕</button>
+            </div>
+
+            <!-- Search and Filter Bar -->
+            <div style="margin-bottom:1.2rem;">
+                <input
+                    type="text"
+                    id="gallerySearchInput"
+                    class="mystic-input"
+                    placeholder="🔍 ค้นหาวลี หรือคำในความหมาย (เช่น ให้เลยหละ, แก้วมังกร, ตี5 45, ใจฟู...)"
+                    style="margin-bottom:0.75rem;"
+                >
+
+                <div class="gallery-filter-bar">
+                    <span style="font-size:0.8rem; color:var(--text-muted); margin-right:0.3rem;">หมวด:</span>
+                    <button type="button" class="gallery-filter-pill active" data-filter="all">ทั้งหมด</button>
+                    <button type="button" class="gallery-filter-pill" data-filter="general">🔮 ทั่วไป & รายวัน</button>
+                    <button type="button" class="gallery-filter-pill" data-filter="love">💘 ความรัก</button>
+                    <button type="button" class="gallery-filter-pill" data-filter="money">💸 การเงิน</button>
+                </div>
+
+                <div class="gallery-filter-bar">
+                    <span style="font-size:0.8rem; color:var(--text-muted); margin-right:0.3rem;">พลังงาน:</span>
+                    <button type="button" class="gallery-tone-pill active" data-tone="all">ทุกพลังงาน</button>
+                    <button type="button" class="gallery-tone-pill" data-tone="positive">🟢 พลังบวก</button>
+                    <button type="button" class="gallery-tone-pill" data-tone="neutral">🟡 พลังกลาง</button>
+                    <button type="button" class="gallery-tone-pill" data-tone="negative">🔴 พลังลบ</button>
+                    <span id="galleryCountBadge" style="margin-left:auto; font-size:0.78rem; color:var(--gold-light);"></span>
+                </div>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="gallery-grid" id="galleryGridContainer"></div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Individual Card Detail Preview -->
+    <div class="modal-backdrop" id="cardDetailModal" role="dialog" aria-modal="true">
+        <div class="modal-card" style="max-width:680px;">
+            <div class="modal-header">
+                <div class="modal-title">🃏 รายละเอียดไพ่ทาโรต์</div>
+                <button type="button" class="btn-close-modal" onclick="document.getElementById('cardDetailModal').classList.remove('open')">✕</button>
+            </div>
+            <div id="cardDetailContent" style="padding-top:0.5rem;"></div>
+        </div>
+    </div>
+
+    <!-- Load Decks and Dashboard Controller -->
+    <script src="data/general.js?v=20261001_v11"></script>
+    <script src="data/love.js?v=20261001_v11"></script>
+    <script src="data/money.js?v=20261001_v11"></script>
+    <script src="dashboard.js?v=20261001_v11"></script>
+</body>
+</html>
