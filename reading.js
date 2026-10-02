@@ -750,6 +750,121 @@ async function ensureQrAssetLoaded() {
     });
 }
 
+// Active export data for the preview/save modal
+let activeExportData = {
+    blob: null,
+    file: null,
+    dataUrl: "",
+    objectUrl: "",
+    filename: ""
+};
+
+async function exportCanvasImage(canvas, filename, cardTitle) {
+    showToast("⏳ กำลังเตรียมรูปภาพคำทำนาย...");
+
+    const dataUrl = canvas.toDataURL("image/png");
+    const blob = await new Promise(resolve => {
+        if (canvas.toBlob) {
+            canvas.toBlob(resolve, "image/png");
+        } else {
+            const binStr = atob(dataUrl.split(",")[1]);
+            const len = binStr.length;
+            const arr = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                arr[i] = binStr.charCodeAt(i);
+            }
+            resolve(new Blob([arr], { type: "image/png" }));
+        }
+    });
+
+    if (!blob) {
+        showToast("⚠️ ไม่สามารถสร้างรูปภาพได้ กรุณาลองใหม่อีกครั้ง");
+        return;
+    }
+
+    if (activeExportData.objectUrl) {
+        try { URL.revokeObjectURL(activeExportData.objectUrl); } catch (_) {}
+    }
+
+    const objectUrl = URL.createObjectURL(blob);
+    let file = null;
+    try {
+        file = new File([blob], filename, { type: "image/png" });
+    } catch (_) {}
+
+    activeExportData = {
+        blob,
+        file,
+        dataUrl,
+        objectUrl,
+        filename
+    };
+
+    const isMobileDevice = /Android|iPhone|iPad|iPod|Mobile|webOS/i.test(navigator.userAgent) || 
+                          (window.innerWidth <= 820) || 
+                          ('ontouchstart' in window && !window.matchMedia('(pointer: fine)').matches);
+
+    // Update modal elements
+    const modal = document.getElementById("cardImageModal");
+    const previewImg = document.getElementById("cardImageModalPreview");
+    const modalTitle = document.getElementById("cardImageModalTitle");
+
+    if (previewImg) {
+        previewImg.src = dataUrl;
+    }
+    if (modalTitle) {
+        modalTitle.textContent = `📸 บันทึกรูป: ${cardTitle}`;
+    }
+
+    // Direct download helper
+    const triggerDownload = () => {
+        const link = document.createElement("a");
+        link.download = filename;
+        link.href = objectUrl || dataUrl;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast("📥 เริ่มดาวน์โหลดรูปภาพลงเครื่องแล้ว!");
+    };
+
+    if (isMobileDevice) {
+        // Open the modal so mobile users immediately see the card & instructions
+        if (modal) {
+            modal.classList.add("open");
+        }
+
+        // Try Web Share API (native sheet) if supported
+        let shareSuccess = false;
+        if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+                await navigator.share({
+                    files: [file],
+                    title: `DooSi.BaRa — ${cardTitle}`,
+                    text: `ผลไพ่ทาโรต์สายมีม: ${cardTitle} จากสำนัก DooSi.BaRa`
+                });
+                shareSuccess = true;
+                showToast("✨ ดำเนินการแชร์/บันทึกรูปเรียบร้อย!");
+            } catch (shareErr) {
+                if (shareErr.name !== "AbortError") {
+                    console.warn("navigator.share failed, fallback to modal", shareErr);
+                }
+            }
+        }
+
+        if (!shareSuccess) {
+            showToast("📸 แตะค้างที่รูปภาพเพื่อบันทึกลงอัลบั้ม หรือกดปุ่มแชร์");
+        }
+    } else {
+        // Desktop: trigger automatic direct download
+        triggerDownload();
+        // Also open modal so user can view/copy high-res image
+        if (modal) {
+            modal.classList.add("open");
+        }
+        showToast(`📸 บันทึกรูปการ์ด “${cardTitle}” เรียบร้อย!`);
+    }
+}
+
 async function downloadSingleCardImage(customCard = null) {
     if (!state.lastRevealedCards || !state.lastRevealedCards.length) return;
     const card = customCard || state.lastRevealedCards[0];
@@ -935,12 +1050,7 @@ async function downloadSingleCardImage(customCard = null) {
     ctx.font = "12px 'Prompt', sans-serif";
     ctx.fillText("🔗 thanabara.github.io/DooSi  •  ดวงนี้ขึ้นอยู่กับนิ้วที่เพื่อนจิ้มล้วนๆ", 88, footerY + 80);
 
-    const link = document.createElement("a");
-    link.download = `DooSiBaRa-${card.id}.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-
-    showToast(`📸 บันทึกรูปการ์ด “${card.phrase}” พร้อม QR Code เรียบร้อย!`);
+    await exportCanvasImage(canvas, `DooSiBaRa-${card.id}.png`, `ไพ่ “${card.phrase}”`);
 }
 
 async function downloadThreeCardsImage() {
@@ -1198,12 +1308,7 @@ async function downloadThreeCardsImage() {
     ctx.font = "12.5px 'Prompt', sans-serif";
     ctx.fillText("🔮 DooSi.BaRa — สำนักไพ่ทาโรต์สายมีม 2026 • thanabara.github.io/DooSi (ดวงนี้ขึ้นอยู่กับนิ้วที่เพื่อนจิ้มล้วนๆ)", 84, footerY + 54);
 
-    const link = document.createElement("a");
-    link.download = `DooSiBaRa-3Cards-${Date.now()}.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-
-    showToast("📸 บันทึกรูปการ์ดคำทำนาย 3 ใบพร้อม QR Code เรียบร้อย! ส่งให้เพื่อนได้เลย");
+    await exportCanvasImage(canvas, `DooSiBaRa-3Cards-${Date.now()}.png`, "ไพ่ 3 กาลเวลา (อดีต • ปัจจุบัน • อนาคต)");
 }
 
 function downloadCardImage(cardIndex = null) {
@@ -1464,6 +1569,79 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Card Image Modal Buttons (Mobile & Desktop)
+    const btnShareModalImage = document.getElementById("btnShareModalImage");
+    if (btnShareModalImage) {
+        btnShareModalImage.addEventListener("click", async () => {
+            if (!activeExportData.file) return;
+            try {
+                if (navigator.canShare && navigator.canShare({ files: [activeExportData.file] })) {
+                    await navigator.share({
+                        files: [activeExportData.file],
+                        title: `DooSi.BaRa — ${activeExportData.filename}`,
+                        text: `ผลไพ่ทาโรต์สายมีมจากสำนัก DooSi.BaRa: thanabara.github.io/DooSi`
+                    });
+                    showToast("✨ ดำเนินการแชร์/บันทึกรูปเรียบร้อย!");
+                    return;
+                }
+            } catch (err) {
+                if (err.name === "AbortError") return;
+            }
+
+            // Fallback if Web Share not supported: try direct download
+            const link = document.createElement("a");
+            link.download = activeExportData.filename;
+            link.href = activeExportData.objectUrl || activeExportData.dataUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("💡 แตะค้างที่รูปภาพเพื่อบันทึกลงอัลบั้มมือถือได้เลย");
+        });
+    }
+
+    const btnDownloadModalDirect = document.getElementById("btnDownloadModalDirect");
+    if (btnDownloadModalDirect) {
+        btnDownloadModalDirect.addEventListener("click", () => {
+            if (!activeExportData.objectUrl && !activeExportData.dataUrl) return;
+            const link = document.createElement("a");
+            link.download = activeExportData.filename;
+            link.href = activeExportData.objectUrl || activeExportData.dataUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("📥 สั่งดาวน์โหลดแล้ว (บนมือถือสามารถแตะค้างที่รูปเพื่อบันทึกได้)");
+        });
+    }
+
+    const btnOpenModalImageTab = document.getElementById("btnOpenModalImageTab");
+    if (btnOpenModalImageTab) {
+        btnOpenModalImageTab.addEventListener("click", () => {
+            if (!activeExportData.dataUrl && !activeExportData.objectUrl) return;
+            const targetUrl = activeExportData.dataUrl || activeExportData.objectUrl;
+            const w = window.open();
+            if (w) {
+                w.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head><title>DooSi.BaRa Card</title><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+                    <body style="margin:0; background:#090314; display:flex; justify-content:center; align-items:center; min-height:100vh; padding:10px;">
+                        <img src="${targetUrl}" style="max-width:100%; height:auto; border-radius:12px; box-shadow:0 0 30px rgba(229,193,88,0.5);">
+                    </body>
+                    </html>
+                `);
+                w.document.close();
+            } else {
+                window.open(targetUrl, "_blank");
+            }
+        });
+    }
+
+    // QR Code Share/Download button action
+    const btnDownloadQrAction = document.getElementById("btnDownloadQrAction");
+    if (btnDownloadQrAction) {
+        btnDownloadQrAction.addEventListener("click", shareOrDownloadQrCode);
+    }
+
     // Close modals on backdrop click
     document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
         backdrop.addEventListener("click", (e) => {
@@ -1482,3 +1660,30 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(`api/counter.php?action=ping&session=${encodeURIComponent(readingSessionId)}`).catch(() => {});
     }, 25000);
 });
+
+async function shareOrDownloadQrCode() {
+    const isMobileDevice = /Android|iPhone|iPad|iPod|Mobile|webOS/i.test(navigator.userAgent) || (window.innerWidth <= 820);
+    try {
+        const response = await fetch("qrcode.png");
+        const blob = await response.blob();
+        const file = new File([blob], "DooSiBaRa-QRCode.png", { type: "image/png" });
+        if (isMobileDevice && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file],
+                title: "DooSi.BaRa QR Code",
+                text: "สแกนเปิดไพ่ทาโรต์สายมีม 2026: thanabara.github.io/DooSi"
+            });
+            showToast("✨ ดำเนินการแชร์/บันทึกรูป QR Code เรียบร้อย!");
+            return;
+        }
+    } catch (_) {}
+
+    // Fallback direct download
+    const link = document.createElement("a");
+    link.download = "DooSiBaRa-QRCode.png";
+    link.href = "qrcode.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast("💡 หากเบราว์เซอร์ไม่ดาวน์โหลด สามารถแตะค้างที่รูป QR เพื่อบันทึกได้ครับ");
+}

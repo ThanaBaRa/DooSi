@@ -785,12 +785,17 @@
                     ยกกล้องมือถือขึ้นมาสแกน QR Code เพื่อเปิดไพ่ดูดวงสายมีมบนมือถือได้ทันที ไม่ต้องโหลดแอป!
                 </p>
                 <div style="display:flex; justify-content:center; gap:0.6rem; flex-wrap:wrap;">
-                    <a href="qrcode.png" download="DooSiBaRa-QRCode.png" class="btn-gold" style="text-decoration:none; font-size:0.88rem;">
+                    <button type="button" id="btnDownloadQrAction" class="btn-gold" style="font-size:0.88rem;">
                         📥 ดาวน์โหลดรูป QR Code
-                    </a>
+                    </button>
                     <button type="button" class="btn-outline-gold" onclick="navigator.clipboard.writeText('https://thanabara.github.io/DooSi/'); showToast('📋 คัดลอกลิงก์เรียบร้อย!');" style="font-size:0.88rem;">
                         🔗 คัดลอกลิงก์
                     </button>
+                </div>
+                <div style="margin-top:0.85rem;">
+                    <span style="display:inline-block; font-size:0.8rem; color:#fdf0a6; background:rgba(229,193,88,0.12); border:1px solid rgba(229,193,88,0.28); padding:0.35rem 0.75rem; border-radius:10px;">
+                        💡 <strong>บนมือถือ:</strong> แตะค้างที่รูป QR Code แล้วกด <em>"บันทึกรูปภาพ"</em> ได้เลย
+                    </span>
                 </div>
             </div>
         </div>
@@ -800,9 +805,9 @@
     <div class="mystic-toast" id="mysticToast" role="status" aria-live="polite"></div>
 
     <!-- Load Decks and Dashboard Controller -->
-    <script src="data/general.js?v=20261002_v17"></script>
-    <script src="data/love.js?v=20261002_v17"></script>
-    <script src="data/money.js?v=20261002_v17"></script>
-    <script src="dashboard.js?v=20261002_v17"></script>
+    <script src="data/general.js?v=20261002_v18"></script>
+    <script src="data/love.js?v=20261002_v18"></script>
+    <script src="data/money.js?v=20261002_v18"></script>
+    <script src="dashboard.js?v=20261002_v18"></script>
 </body>
 </html>

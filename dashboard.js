@@ -595,6 +595,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // QR Code Share/Download button action
+    const btnDownloadQrAction = document.getElementById("btnDownloadQrAction");
+    if (btnDownloadQrAction) {
+        btnDownloadQrAction.addEventListener("click", shareOrDownloadQrCode);
+    }
+
     // Backdrop close
     document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
         backdrop.addEventListener("click", (e) => {
@@ -602,6 +608,33 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+async function shareOrDownloadQrCode() {
+    const isMobileDevice = /Android|iPhone|iPad|iPod|Mobile|webOS/i.test(navigator.userAgent) || (window.innerWidth <= 820);
+    try {
+        const response = await fetch("qrcode.png");
+        const blob = await response.blob();
+        const file = new File([blob], "DooSiBaRa-QRCode.png", { type: "image/png" });
+        if (isMobileDevice && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file],
+                title: "DooSi.BaRa QR Code",
+                text: "สแกนเปิดไพ่ทาโรต์สายมีม 2026: thanabara.github.io/DooSi"
+            });
+            showToast("✨ ดำเนินการแชร์/บันทึกรูป QR Code เรียบร้อย!");
+            return;
+        }
+    } catch (_) {}
+
+    // Fallback direct download
+    const link = document.createElement("a");
+    link.download = "DooSiBaRa-QRCode.png";
+    link.href = "qrcode.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast("💡 หากเบราว์เซอร์ไม่ดาวน์โหลด สามารถแตะค้างที่รูป QR เพื่อบันทึกได้ครับ");
+}
 
 let toastTimer = null;
 function showToast(msg) {

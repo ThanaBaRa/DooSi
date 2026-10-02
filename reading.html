@@ -517,11 +517,54 @@
                     ยกกล้องมือถือขึ้นมาสแกน QR Code เพื่อเปิดไพ่ดูดวงสายมีมบนมือถือได้ทันที ไม่ต้องโหลดแอป!
                 </p>
                 <div style="display:flex; justify-content:center; gap:0.6rem; flex-wrap:wrap;">
-                    <a href="qrcode.png" download="DooSiBaRa-QRCode.png" class="btn-gold" style="text-decoration:none; font-size:0.88rem;">
+                    <button type="button" id="btnDownloadQrAction" class="btn-gold" style="font-size:0.88rem;">
                         📥 ดาวน์โหลดรูป QR Code
-                    </a>
+                    </button>
                     <button type="button" class="btn-outline-gold" onclick="navigator.clipboard.writeText('https://thanabara.github.io/DooSi/'); showToast('📋 คัดลอกลิงก์เรียบร้อย!');" style="font-size:0.88rem;">
                         🔗 คัดลอกลิงก์
+                    </button>
+                </div>
+                <div style="margin-top:0.85rem;">
+                    <span style="display:inline-block; font-size:0.8rem; color:#fdf0a6; background:rgba(229,193,88,0.12); border:1px solid rgba(229,193,88,0.28); padding:0.35rem 0.75rem; border-radius:10px;">
+                        💡 <strong>บนมือถือ:</strong> แตะค้างที่รูป QR Code แล้วกด <em>"บันทึกรูปภาพ"</em> ได้เลย
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Card Image Preview & Save (Mobile & Desktop Friendly) -->
+    <div class="modal-backdrop" id="cardImageModal" role="dialog" aria-modal="true">
+        <div class="modal-card" style="max-width:580px; text-align:center;">
+            <div class="modal-header">
+                <div class="modal-title" id="cardImageModalTitle">📸 บันทึกรูปการ์ดคำทำนาย</div>
+                <button type="button" class="btn-close-modal" onclick="document.getElementById('cardImageModal').classList.remove('open')">✕</button>
+            </div>
+            <div style="padding:0.6rem 0.25rem 0.25rem;">
+                <!-- Helpful mobile instruction -->
+                <div style="background:rgba(229,193,88,0.12); border:1px solid rgba(229,193,88,0.38); border-radius:14px; padding:0.75rem 1rem; margin-bottom:1rem; text-align:left; display:flex; align-items:flex-start; gap:0.65rem;">
+                    <span style="font-size:1.35rem; line-height:1;">📱</span>
+                    <div style="font-size:0.84rem; color:#fdf0a6; line-height:1.45;">
+                        <strong style="color:#ffffff;">วิธีบันทึกภาพลงมือถือ / เซฟลงอัลบั้ม:</strong><br>
+                        👉 <strong>แตะค้างที่รูปภาพ (Long-press)</strong> แล้วกดเลือก <span style="text-decoration:underline; font-weight:600; color:#fff;">"บันทึกรูปภาพ"</span> หรือ <span style="text-decoration:underline; font-weight:600; color:#fff;">"เพิ่มไปยังรูปภาพ"</span> เพื่อเซฟลงอัลบั้มรูปได้ทันที!
+                    </div>
+                </div>
+
+                <!-- Preview Image -->
+                <div style="max-height:54vh; overflow-y:auto; border-radius:14px; margin-bottom:1rem; background:rgba(0,0,0,0.45); padding:6px; border:1px solid rgba(229,193,88,0.2);">
+                    <img id="cardImageModalPreview" src="" alt="ภาพการ์ดคำทำนาย DooSi.BaRa" style="max-width:100%; height:auto; display:block; margin:0 auto; border-radius:10px; box-shadow:0 6px 25px rgba(0,0,0,0.6); -webkit-touch-callout:default; user-select:auto;">
+                </div>
+
+                <!-- Action buttons -->
+                <div style="display:flex; justify-content:center; gap:0.6rem; flex-wrap:wrap;">
+                    <button type="button" class="btn-gold" id="btnShareModalImage" style="font-size:0.86rem; padding:0.55rem 1.15rem;">
+                        📤 แชร์ / บันทึกรูป
+                    </button>
+                    <button type="button" class="btn-outline-gold" id="btnDownloadModalDirect" style="font-size:0.86rem; padding:0.55rem 1.15rem;">
+                        📥 ดาวน์โหลดไฟล์
+                    </button>
+                    <button type="button" class="btn-pill" id="btnOpenModalImageTab" style="font-size:0.86rem; padding:0.55rem 1rem;">
+                        ↗️ เปิดรูปเต็มจอ
                     </button>
                 </div>
             </div>
@@ -532,9 +575,9 @@
     <div class="mystic-toast" id="mysticToast" role="status" aria-live="polite"></div>
 
     <!-- Load Dedicated Data Decks and Reading Engine -->
-    <script src="data/general.js?v=20261002_v17"></script>
-    <script src="data/love.js?v=20261002_v17"></script>
-    <script src="data/money.js?v=20261002_v17"></script>
-    <script src="reading.js?v=20261002_v17"></script>
+    <script src="data/general.js?v=20261002_v18"></script>
+    <script src="data/love.js?v=20261002_v18"></script>
+    <script src="data/money.js?v=20261002_v18"></script>
+    <script src="reading.js?v=20261002_v18"></script>
 </body>
 </html>
