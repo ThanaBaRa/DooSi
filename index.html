@@ -20,27 +20,63 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Cinzel+Decorative:wght@700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20261001_v10">
+    <link rel="stylesheet" href="styles.css?v=20261002_v13">
 
     <!-- Direct Fallback / Cache-Proof Essential Layout Styles -->
+    <!-- Direct Fallback / Cache-Proof Essential Layout Styles -->
     <style>
+        /* Base typography & preventing awkward word drops */
+        .stat-title, .stat-unit, .pill-label, .pill-unit, .legend-tag, .legend-label {
+            white-space: nowrap !important;
+            word-break: keep-all !important;
+        }
+
         .dashboard-stats-grid {
             display: grid !important;
-            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)) !important;
-            gap: 1.1rem !important;
+            grid-template-columns: repeat(5, 1fr) !important;
+            gap: 1rem !important;
             margin: 1.5rem auto 3rem !important;
             max-width: 1180px !important;
         }
-        @media (min-width: 1024px) {
+
+        @media (max-width: 1024px) {
             .dashboard-stats-grid {
-                grid-template-columns: repeat(5, 1fr) !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 0.85rem !important;
             }
         }
+
+        @media (max-width: 680px) {
+            .dashboard-stats-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.65rem !important;
+                margin: 1.2rem auto 2.2rem !important;
+            }
+            .stat-box.highlight-player-stat {
+                grid-column: span 2 !important;
+                padding: 1.15rem 1rem !important;
+            }
+            .stat-box {
+                padding: 0.95rem 0.65rem !important;
+                border-radius: 16px !important;
+            }
+            .stat-icon {
+                font-size: 1.75rem !important;
+                margin-bottom: 0.25rem !important;
+            }
+            .stat-num-val {
+                font-size: 1.45rem !important;
+            }
+            .stat-title {
+                font-size: 0.76rem !important;
+            }
+        }
+
         .stat-box {
             background: linear-gradient(145deg, rgba(35, 17, 70, 0.85) 0%, rgba(16, 7, 36, 0.95) 100%) !important;
             border: 1.5px solid rgba(229, 193, 88, 0.32) !important;
             border-radius: 20px !important;
-            padding: 1.35rem 1.15rem !important;
+            padding: 1.25rem 0.85rem !important;
             text-align: center !important;
             box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6) !important;
             backdrop-filter: blur(14px) !important;
@@ -51,12 +87,190 @@
             border-color: #e5c158 !important;
             box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75), 0 0 25px rgba(229, 193, 88, 0.4) !important;
         }
+
+        .stat-number {
+            display: inline-flex !important;
+            align-items: baseline !important;
+            justify-content: center !important;
+            gap: 0.35rem !important;
+            white-space: nowrap !important;
+            line-height: 1.2 !important;
+            margin: 0.2rem 0 !important;
+        }
+        .stat-num-val {
+            font-family: 'Cinzel Decorative', serif !important;
+            font-size: clamp(1.4rem, 2.1vw, 2.05rem) !important;
+            font-weight: 700 !important;
+            background: linear-gradient(135deg, #fff2b2, #e5c158, #c89629) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            letter-spacing: 0.02em !important;
+            white-space: nowrap !important;
+        }
+        .stat-unit {
+            font-family: 'Prompt', sans-serif !important;
+            font-size: 0.88rem !important;
+            font-weight: 500 !important;
+            color: #fdf0a6 !important;
+            white-space: nowrap !important;
+        }
+        .stat-title {
+            font-size: clamp(0.76rem, 1vw, 0.86rem) !important;
+            color: #bbaed6 !important;
+            margin-top: 0.25rem !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.01em !important;
+        }
+
+        /* Live Counter Strip Mobile & Desktop */
+        .live-counter-strip {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 1.15rem !important;
+            background: linear-gradient(135deg, rgba(28, 14, 56, 0.92) 0%, rgba(13, 6, 28, 0.96) 100%) !important;
+            border: 1.5px solid rgba(229, 193, 88, 0.45) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65), 0 0 25px rgba(184, 107, 255, 0.2) !important;
+            border-radius: 999px !important;
+            padding: 0.55rem 1.4rem !important;
+            margin: 1.25rem auto 0 !important;
+            max-width: 900px !important;
+            backdrop-filter: blur(12px) !important;
+            white-space: nowrap !important;
+        }
+        .live-counter-pill {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 0.45rem !important;
+            font-size: 0.92rem !important;
+            color: #f8f3ff !important;
+            white-space: nowrap !important;
+        }
+        .pill-value {
+            display: inline-flex !important;
+            align-items: baseline !important;
+            gap: 0.2rem !important;
+            white-space: nowrap !important;
+        }
+        .pill-unit {
+            font-size: 0.82rem !important;
+            color: #fdf0a6 !important;
+            white-space: nowrap !important;
+        }
+
+        @media (max-width: 768px) {
+            .app-wrapper {
+                padding: 1rem 0.85rem 3rem !important;
+            }
+            .top-bar {
+                border-radius: 18px !important;
+                padding: 0.65rem 0.85rem !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0.65rem !important;
+                margin-bottom: 1.25rem !important;
+            }
+            .brand-mini {
+                justify-content: center !important;
+                font-size: 1rem !important;
+            }
+            .quick-nav-actions {
+                display: flex !important;
+                align-items: center !important;
+                gap: 0.45rem !important;
+                justify-content: center !important;
+            }
+            .btn-pill {
+                font-size: 0.8rem !important;
+                padding: 0.35rem 0.75rem !important;
+                white-space: nowrap !important;
+            }
+            .site-title {
+                font-size: clamp(2rem, 8vw, 2.8rem) !important;
+            }
+            .hero-mascot-img {
+                width: 58px !important;
+                height: 58px !important;
+            }
+            .badge-2026 {
+                font-size: 0.7rem !important;
+                padding: 0.2rem 0.65rem !important;
+            }
+            .live-counter-strip {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                border-radius: 16px !important;
+                padding: 0.55rem 0.45rem !important;
+                gap: 0.35rem !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            .live-counter-divider {
+                display: none !important;
+            }
+            .live-counter-pill {
+                flex-direction: column !important;
+                justify-content: center !important;
+                text-align: center !important;
+                gap: 0.15rem !important;
+                font-size: 0.72rem !important;
+                padding: 0.35rem 0.2rem !important;
+                border-radius: 10px !important;
+                background: rgba(255, 255, 255, 0.04) !important;
+                border: 1px solid rgba(229, 193, 88, 0.15) !important;
+            }
+            .pill-label {
+                font-size: 0.68rem !important;
+                color: #bbaed6 !important;
+                white-space: nowrap !important;
+            }
+            .pill-value {
+                font-size: 0.82rem !important;
+            }
+            .live-glow-val {
+                font-size: 0.98rem !important;
+            }
+        }
+
         .modes-portal-grid {
             display: grid !important;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
-            gap: 2rem !important;
+            gap: 1.75rem !important;
             margin-bottom: 4rem !important;
         }
+
+        @media (max-width: 768px) {
+            .modes-portal-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.25rem !important;
+                margin-bottom: 2.5rem !important;
+            }
+            .mode-portal-card {
+                padding: 1.5rem 1.25rem !important;
+                border-radius: 20px !important;
+            }
+            .portal-desc {
+                font-size: 0.88rem !important;
+                line-height: 1.55 !important;
+            }
+            .portal-title {
+                font-size: 1.35rem !important;
+            }
+            .system-guide-card {
+                padding: 1.6rem 1.15rem !important;
+                border-radius: 20px !important;
+                margin-bottom: 2.5rem !important;
+            }
+            .guide-step-grid {
+                grid-template-columns: 1fr !important;
+                gap: 0.9rem !important;
+            }
+            .tone-explain-grid {
+                grid-template-columns: 1fr !important;
+                gap: 0.9rem !important;
+            }
+        }
+
         .mode-portal-card {
             background: linear-gradient(165deg, rgba(32, 16, 64, 0.92) 0%, rgba(14, 6, 30, 0.98) 100%) !important;
             border: 2px solid rgba(229, 193, 88, 0.38) !important;
@@ -208,8 +422,7 @@
             <h1 class="site-title">DooSi.BaRa</h1>
             <span class="site-title-thai">✦ สำนักไพ่ทาโรต์ “ดูสิ.บาร่า” 2026 ✦</span>
             <p class="site-subtitle">
-                เว็บแอปพลิเคชันดูดวงสายมีมและคำอวยพรสุดปั่น สับไพ่วลีฮิตติดกระแสโซเชียลไทย<br>
-                ให้คุณและเพื่อนเลือกไพ่ด้วยนิ้วตัวเอง สัมผัสพลังงานจักรวาลทั้งสายอวยยศ สายเตือนสติ และสายแกงเพื่อน!
+                เว็บแอปพลิเคชันดูดวงสายมีมและคำอวยพรสุดปั่น สับไพ่วลีฮิตติดกระแสโซเชียลไทย ให้คุณและเพื่อนเลือกไพ่ด้วยนิ้วตัวเอง สัมผัสพลังงานจักรวาลทั้งสายอวยยศ สายเตือนสติ และสายแกงเพื่อน!
             </p>
             <span class="badge-2026">⚡ THAI VIRAL TAROT 2026 EDITION • 3 INDEPENDENT DECKS</span>
 
@@ -217,15 +430,18 @@
             <div class="live-counter-strip" aria-label="สถิติผู้เปิดไพ่แบบเรียลไทม์">
                 <div class="live-counter-pill pulse-active">
                     <span class="live-pulse-dot" aria-hidden="true"></span>
-                    <span>กำลังเปิดไพ่ขณะนี้: <strong id="liveOnlineCount" class="live-glow-val">28</strong> คน</span>
+                    <span class="pill-label">ออนไลน์ขณะนี้:</span>
+                    <span class="pill-value"><strong id="liveOnlineCount" class="live-glow-val">1</strong> <span class="pill-unit">คน</span></span>
                 </div>
                 <div class="live-counter-divider" aria-hidden="true">✦</div>
                 <div class="live-counter-pill">
-                    <span>👥 เปิดคำทำนายสะสม: <strong id="liveTotalReadings" class="live-glow-val">28,540</strong> ครั้ง</span>
+                    <span class="pill-label">🔮 เปิดคำทำนายรวม:</span>
+                    <span class="pill-value"><strong id="liveTotalReadings" class="live-glow-val">0</strong> <span class="pill-unit">ครั้ง</span></span>
                 </div>
                 <div class="live-counter-divider" aria-hidden="true">✦</div>
                 <div class="live-counter-pill">
-                    <span>📅 วันนี้เปิดไปแล้ว: <strong id="liveTodayReadings" class="live-glow-val">1,280</strong> ครั้ง</span>
+                    <span class="pill-label">⚡ วันนี้เปิดไปแล้ว:</span>
+                    <span class="pill-value"><strong id="liveTodayReadings" class="live-glow-val">0</strong> <span class="pill-unit">ครั้ง</span></span>
                 </div>
             </div>
         </header>
@@ -234,27 +450,27 @@
         <div class="dashboard-stats-grid">
             <div class="stat-box highlight-player-stat">
                 <div class="stat-icon">👥</div>
-                <div class="stat-number" id="statPlayerCount">28,540+</div>
+                <div class="stat-number" id="statPlayerCount"><span class="stat-num-val">0</span> <span class="stat-unit">ครั้ง</span></div>
                 <div class="stat-title">สถิติคนเล่นสะสม</div>
             </div>
             <div class="stat-box">
                 <div class="stat-icon">🃏</div>
-                <div class="stat-number" id="statTotalCards">84+</div>
+                <div class="stat-number" id="statTotalCards"><span class="stat-num-val">84+</span></div>
                 <div class="stat-title">ไพ่วลีไวรัลทั้งหมด</div>
             </div>
             <div class="stat-box">
                 <div class="stat-icon">🔮</div>
-                <div class="stat-number" id="statGeneralCards">56 ใบ</div>
+                <div class="stat-number" id="statGeneralCards"><span class="stat-num-val">56</span> <span class="stat-unit">ใบ</span></div>
                 <div class="stat-title">หมวดทั่วไป & รายวัน</div>
             </div>
             <div class="stat-box">
                 <div class="stat-icon">💘</div>
-                <div class="stat-number" id="statLoveCards">16 ใบ</div>
+                <div class="stat-number" id="statLoveCards"><span class="stat-num-val">16</span> <span class="stat-unit">ใบ</span></div>
                 <div class="stat-title">หมวดดวงความรัก</div>
             </div>
             <div class="stat-box">
                 <div class="stat-icon">💸</div>
-                <div class="stat-number" id="statMoneyCards">12 ใบ</div>
+                <div class="stat-number" id="statMoneyCards"><span class="stat-num-val">12</span> <span class="stat-unit">ใบ</span></div>
                 <div class="stat-title">หมวดการเงิน & งาน</div>
             </div>
         </div>
@@ -510,9 +726,9 @@
     </div>
 
     <!-- Load Decks and Dashboard Controller -->
-    <script src="data/general.js?v=20261001_v11"></script>
-    <script src="data/love.js?v=20261001_v11"></script>
-    <script src="data/money.js?v=20261001_v11"></script>
-    <script src="dashboard.js?v=20261001_v11"></script>
+    <script src="data/general.js?v=20261002_v13"></script>
+    <script src="data/love.js?v=20261002_v13"></script>
+    <script src="data/money.js?v=20261002_v13"></script>
+    <script src="dashboard.js?v=20261002_v13"></script>
 </body>
 </html>

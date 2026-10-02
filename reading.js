@@ -483,7 +483,17 @@ function handleCardPick(index, slotEl) {
 function revealReading() {
     // Notify counter API of genuine completed reading
     const sId = sessionStorage.getItem("doosi_session_id") || "sess_reading";
-    fetch(`api/counter.php?action=read&session=${encodeURIComponent(sId)}`).catch(() => {});
+    const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    if (isLocal) {
+        fetch(`api/counter.php?action=read&session=${encodeURIComponent(sId)}`).catch(() => {});
+    }
+
+    // Global Cloud Counter (Abacus API)
+    try {
+        const todayStr = new Date().toISOString().slice(0, 10);
+        fetch("https://abacus.jasoncameron.dev/hit/doosibara-2026-v1/readings", { mode: "cors" }).catch(() => {});
+        fetch(`https://abacus.jasoncameron.dev/hit/doosibara-2026-v1/readings-${todayStr}`, { mode: "cors" }).catch(() => {});
+    } catch (_) {}
 
     const readingStage = document.getElementById("readingStage");
     const friendName = document.getElementById("friendNameInput").value.trim() || "ผู้รับคำทำนายผู้ทรงเกียรติ";
@@ -572,7 +582,7 @@ function revealReading() {
                     <span class="position-pill">${positions[i]}</span>
                     ${getToneBadgeHtml(card.tone)}
                 </div>
-                <div class="tarot-card-showcase" style="max-width: 230px;">
+                <div class="tarot-card-showcase" style="max-width: 230px; margin: 0.5rem auto;">
                     <div class="tarot-card-front">
                         <div class="tarot-card-frame">
                             <div class="tarot-roman">${card.roman}</div>

@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Cinzel+Decorative:wght@700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20261001_v10">
+    <link rel="stylesheet" href="styles.css?v=20261002_v13">
     <style>
         .tarot-deck-grid {
             display: grid !important;
@@ -71,6 +71,7 @@
             border-radius: 999px !important;
             cursor: pointer !important;
             transition: all 0.25s ease !important;
+            white-space: nowrap !important;
         }
         .view-pill.active {
             background: linear-gradient(135deg, rgba(229, 193, 88, 0.35), rgba(184, 107, 255, 0.35)) !important;
@@ -93,6 +94,7 @@
             padding: 0.35rem 0.85rem !important;
             border-radius: 999px !important;
             cursor: pointer !important;
+            white-space: nowrap !important;
         }
         .fan-indicator-pill {
             font-size: 0.82rem !important;
@@ -102,12 +104,13 @@
             border-radius: 999px !important;
             padding: 0.32rem 0.85rem !important;
             font-weight: 500 !important;
+            white-space: nowrap !important;
         }
         .tarot-spread-container.view-fan {
             max-width: 100vw !important;
             overflow: hidden !important;
             position: relative !important;
-            padding: 0.5rem 0 !important;
+            padding: 0.8rem 0 !important;
         }
         .tarot-spread-container.view-fan .tarot-deck-grid {
             display: flex !important;
@@ -115,7 +118,7 @@
             overflow-y: hidden !important;
             scroll-snap-type: x proximity !important;
             -webkit-overflow-scrolling: touch !important;
-            padding: 2.2rem 2.8rem 2.2rem !important;
+            padding: 2.6rem 2.4rem 2rem !important;
             gap: 0 !important;
             max-width: 100% !important;
             justify-content: flex-start !important;
@@ -145,17 +148,6 @@
             margin-left: 14px !important;
             filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 25px #e5c158) !important;
         }
-        @media (max-width: 600px) {
-            .tarot-spread-container.view-fan .deck-card-slot {
-                flex: 0 0 82px !important;
-                width: 82px !important;
-                height: 130px !important;
-                margin-right: -36px !important;
-            }
-            .tarot-spread-container.view-fan .tarot-deck-grid {
-                padding: 1.8rem 1.4rem 1.6rem !important;
-            }
-        }
 
         /* Altar Grid & Energy Legend Bar */
         .altar-grid {
@@ -163,11 +155,6 @@
             grid-template-columns: 1fr auto !important;
             gap: 1.2rem !important;
             align-items: end !important;
-        }
-        @media (max-width: 768px) {
-            .altar-grid {
-                grid-template-columns: 1fr !important;
-            }
         }
         .energy-legend-bar {
             display: inline-flex !important;
@@ -181,7 +168,7 @@
             padding: 0.42rem 0.85rem !important;
             margin-bottom: 0.2rem !important;
         }
-        .legend-label {
+        .legend-label, .position-pill {
             font-size: 0.82rem !important;
             color: #bbaed6 !important;
             white-space: nowrap !important;
@@ -211,11 +198,130 @@
             color: #ff7f8a !important;
             border: 1px solid rgba(255, 71, 87, 0.4) !important;
         }
-        @media (max-width: 600px) {
+
+        /* Mobile Overhaul for Tarot Chamber */
+        @media (max-width: 768px) {
+            .app-wrapper {
+                padding: 1rem 0.85rem 3rem !important;
+            }
+            .top-bar {
+                border-radius: 18px !important;
+                padding: 0.65rem 0.85rem !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0.65rem !important;
+                margin-bottom: 1.25rem !important;
+            }
+            .top-actions {
+                display: flex !important;
+                align-items: center !important;
+                gap: 0.45rem !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                padding-bottom: 2px !important;
+                scrollbar-width: none !important;
+            }
+            .top-actions::-webkit-scrollbar {
+                display: none !important;
+            }
+            .top-actions .btn-pill {
+                flex-shrink: 0 !important;
+                white-space: nowrap !important;
+                font-size: 0.8rem !important;
+                padding: 0.35rem 0.75rem !important;
+            }
+            .altar-panel {
+                padding: 1.25rem 1rem !important;
+                border-radius: 18px !important;
+            }
+            .altar-grid {
+                grid-template-columns: 1fr !important;
+                gap: 0.8rem !important;
+            }
             .energy-legend-bar {
                 flex-wrap: wrap !important;
                 border-radius: 14px !important;
-                padding: 0.5rem 0.75rem !important;
+                padding: 0.45rem 0.65rem !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .spread-mode-bar {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0.75rem !important;
+            }
+            .mode-tabs {
+                flex-direction: column !important;
+                width: 100% !important;
+            }
+            .mode-tab {
+                width: 100% !important;
+                text-align: center !important;
+                white-space: nowrap !important;
+            }
+            .action-buttons {
+                width: 100% !important;
+                flex-direction: column !important;
+            }
+            .btn-gold, .btn-outline-gold {
+                width: 100% !important;
+                justify-content: center !important;
+                text-align: center !important;
+            }
+            .deck-view-bar {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 0.65rem !important;
+            }
+            .view-switch-pills {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+            .view-pill {
+                flex: 1 !important;
+                text-align: center !important;
+                font-size: 0.78rem !important;
+                padding: 0.4rem 0.6rem !important;
+            }
+            .fan-navigator-bar {
+                width: 100% !important;
+                justify-content: space-between !important;
+            }
+            .tarot-spread-container.view-fan .deck-card-slot {
+                flex: 0 0 82px !important;
+                width: 82px !important;
+                height: 130px !important;
+                margin-right: -36px !important;
+            }
+            .tarot-spread-container.view-fan .tarot-deck-grid {
+                padding: 2.6rem 1.4rem 1.6rem !important;
+            }
+            .tarot-spread-container.view-fan .deck-card-slot.selected {
+                transform: translateY(-24px) scale(1.12) !important;
+                margin-right: 10px !important;
+                margin-left: 10px !important;
+            }
+            .single-reading-layout {
+                grid-template-columns: 1fr !important;
+                padding: 1.25rem 1rem !important;
+            }
+            .three-card-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.25rem !important;
+            }
+            .three-card-item {
+                padding: 1.15rem 0.95rem !important;
+            }
+            .reading-actions-bar {
+                flex-direction: column !important;
+                width: 100% !important;
+            }
+            .reading-actions-bar button, .reading-actions-bar a {
+                width: 100% !important;
+                justify-content: center !important;
+                text-align: center !important;
+                padding: 0.85rem 1rem !important;
+                font-size: 0.95rem !important;
             }
         }
     </style>
@@ -226,12 +332,12 @@
     <div class="app-wrapper">
         <!-- Top Navigation -->
         <nav class="top-bar">
-            <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <div style="display:flex; align-items:center; justify-content:space-between; width:100%; gap:0.6rem; flex-wrap:wrap;">
                 <a href="index.html" class="btn-pill" style="text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:0.45rem;">
                     <img src="icon.png" alt="DooSi.BaRa Mascot" style="width:22px; height:22px; border-radius:50%; object-fit:cover; border:1px solid var(--gold-light);">
                     ← กลับแดชบอร์ดหลัก
                 </a>
-                <span class="badge-general" id="activeModeBadge" style="padding:0.35rem 0.85rem; border-radius:999px; font-size:0.8rem; font-weight:600;">
+                <span class="badge-general" id="activeModeBadge" style="padding:0.35rem 0.85rem; border-radius:999px; font-size:0.8rem; font-weight:600; white-space:nowrap;">
                     🔮 กำลังโหลด...
                 </span>
             </div>
@@ -247,7 +353,7 @@
                     💸 การเงิน
                 </button>
                 <button type="button" class="btn-pill" id="btnOpenGallery">
-                    🃏 ดูไพ่ทั้งหมดในหมวดนี้
+                    🃏 ดูไพ่ทั้งหมด
                 </button>
                 <button type="button" class="btn-pill sound-active" id="btnToggleSound">
                     <span class="bgm-wave-anim">🎶</span> เพลงบรรยากาศ: เปิด
@@ -369,9 +475,9 @@
     <div class="mystic-toast" id="mysticToast" role="status" aria-live="polite"></div>
 
     <!-- Load Dedicated Data Decks and Reading Engine -->
-    <script src="data/general.js?v=20261001_v11"></script>
-    <script src="data/love.js?v=20261001_v11"></script>
-    <script src="data/money.js?v=20261001_v11"></script>
-    <script src="reading.js?v=20261001_v11"></script>
+    <script src="data/general.js?v=20261002_v13"></script>
+    <script src="data/love.js?v=20261002_v13"></script>
+    <script src="data/money.js?v=20261002_v13"></script>
+    <script src="reading.js?v=20261002_v13"></script>
 </body>
 </html>
