@@ -735,40 +735,56 @@ function wrapCanvasText(ctx, text, maxWidth) {
     return lines;
 }
 
-function downloadSingleCardImage(customCard = null) {
+// ============================================================================
+// QR Code Asset Preloader for Card Exports & Modals
+// ============================================================================
+const qrCodeAsset = new Image();
+qrCodeAsset.src = "qrcode.png";
+
+async function ensureQrAssetLoaded() {
+    if (qrCodeAsset.complete && qrCodeAsset.naturalWidth > 0) return qrCodeAsset;
+    return new Promise((resolve) => {
+        qrCodeAsset.onload = () => resolve(qrCodeAsset);
+        qrCodeAsset.onerror = () => resolve(null);
+        setTimeout(() => resolve(null), 1200);
+    });
+}
+
+async function downloadSingleCardImage(customCard = null) {
     if (!state.lastRevealedCards || !state.lastRevealedCards.length) return;
     const card = customCard || state.lastRevealedCards[0];
     const friendName = document.getElementById("friendNameInput").value.trim() || "เพื่อนผู้โชคดี";
     const conf = MODE_CONFIG[currentMode];
+    const qrImg = await ensureQrAssetLoaded();
 
     const canvas = document.createElement("canvas");
     canvas.width = 860;
-    canvas.height = 790;
+    canvas.height = 910;
     const ctx = canvas.getContext("2d");
 
     // Background Gradient
-    const bgGrad = ctx.createLinearGradient(0, 0, 860, 790);
+    const bgGrad = ctx.createLinearGradient(0, 0, 860, 910);
     bgGrad.addColorStop(0, "#16092b");
     bgGrad.addColorStop(0.5, "#0a0415");
     bgGrad.addColorStop(1, "#210d3c");
     ctx.fillStyle = bgGrad;
-    ctx.fillRect(0, 0, 860, 790);
+    ctx.fillRect(0, 0, 860, 910);
 
     // Radial Gold Glow
     const radGrad = ctx.createRadialGradient(430, 270, 30, 430, 270, 360);
     radGrad.addColorStop(0, "rgba(229, 193, 88, 0.2)");
     radGrad.addColorStop(1, "rgba(229, 193, 88, 0)");
     ctx.fillStyle = radGrad;
-    ctx.fillRect(0, 0, 860, 790);
+    ctx.fillRect(0, 0, 860, 910);
 
     // Double Borders
     ctx.strokeStyle = "#e5c158";
     ctx.lineWidth = 3.5;
-    ctx.strokeRect(16, 16, 828, 758);
+    ctx.strokeRect(16, 16, 828, 878);
 
     ctx.strokeStyle = "rgba(229, 193, 88, 0.4)";
     ctx.lineWidth = 1.5;
-    ctx.strokeRect(26, 26, 808, 738);
+    ctx.strokeRect(26, 26, 808, 858);
 
     // Corner Diamonds
     function drawCornerDiamond(x, y) {
@@ -783,8 +799,8 @@ function downloadSingleCardImage(customCard = null) {
     }
     drawCornerDiamond(26, 26);
     drawCornerDiamond(834, 26);
-    drawCornerDiamond(26, 764);
-    drawCornerDiamond(834, 764);
+    drawCornerDiamond(26, 884);
+    drawCornerDiamond(834, 884);
 
     // Header
     ctx.textAlign = "center";
@@ -892,53 +908,76 @@ function downloadSingleCardImage(customCard = null) {
     ctx.fillStyle = "#7bed9f";
     ctx.fillText(`🔢 เลขมงคลประจำดวง 2026: ${card.luckyNumber}`, 430, luckyBoxY + 49);
 
-    // Footer
-    ctx.fillStyle = "#9f93ba";
+    // Footer with QR Code Container
+    const footerY = luckyBoxY + 76;
+    ctx.fillStyle = "rgba(10, 4, 20, 0.78)";
+    ctx.fillRect(70, footerY, 720, 102);
+    ctx.strokeStyle = "rgba(229, 193, 88, 0.35)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(70, footerY, 720, 102);
+
+    if (qrImg) {
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(694, footerY + 7, 88, 88);
+        ctx.drawImage(qrImg, 694, footerY + 7, 88, 88);
+    }
+
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#fdf0a6";
+    ctx.font = "bold 15px 'Prompt', sans-serif";
+    ctx.fillText("📱 สแกน QR Code เปิดไพ่ชะตาของคุณได้ที่นี่ (เล่นฟรี!) ➔", 88, footerY + 30);
+
+    ctx.fillStyle = "#c9bfe3";
     ctx.font = "13px 'Prompt', sans-serif";
-    ctx.fillText("✦ DooSi.BaRa — สำนักไพ่ทาโรต์สายมีม 2026 (ดวงนี้ขึ้นอยู่กับนิ้วที่เพื่อนจิ้มล้วนๆ) ✦", 430, 746);
+    ctx.fillText("🔮 DooSi.BaRa — สำนักไพ่ทาโรต์สายมีม 2026 (3 หมวดจัดเต็ม 84 ใบ)", 88, footerY + 56);
+
+    ctx.fillStyle = "#9f93ba";
+    ctx.font = "12px 'Prompt', sans-serif";
+    ctx.fillText("🔗 thanabara.github.io/DooSi  •  ดวงนี้ขึ้นอยู่กับนิ้วที่เพื่อนจิ้มล้วนๆ", 88, footerY + 80);
 
     const link = document.createElement("a");
     link.download = `DooSiBaRa-${card.id}.png`;
     link.href = canvas.toDataURL("image/png");
     link.click();
 
-    showToast(`📸 บันทึกรูปการ์ด “${card.phrase}” เรียบร้อย!`);
+    showToast(`📸 บันทึกรูปการ์ด “${card.phrase}” พร้อม QR Code เรียบร้อย!`);
 }
 
-function downloadThreeCardsImage() {
+async function downloadThreeCardsImage() {
     if (!state.lastRevealedCards || state.lastRevealedCards.length < 3) return;
     const cards = state.lastRevealedCards.slice(0, 3);
     const friendName = document.getElementById("friendNameInput").value.trim() || "เพื่อนผู้โชคดี";
     const conf = MODE_CONFIG[currentMode];
+    const qrImg = await ensureQrAssetLoaded();
 
     const canvas = document.createElement("canvas");
     canvas.width = 1200;
-    canvas.height = 690;
+    canvas.height = 770;
     const ctx = canvas.getContext("2d");
 
     // Background Gradient
-    const bgGrad = ctx.createLinearGradient(0, 0, 1200, 690);
+    const bgGrad = ctx.createLinearGradient(0, 0, 1200, 770);
     bgGrad.addColorStop(0, "#15082a");
     bgGrad.addColorStop(0.5, "#090314");
     bgGrad.addColorStop(1, "#1c0b33");
     ctx.fillStyle = bgGrad;
-    ctx.fillRect(0, 0, 1200, 690);
+    ctx.fillRect(0, 0, 1200, 770);
 
     // Subtle Gold Glow Center
-    const radGrad = ctx.createRadialGradient(600, 330, 40, 600, 330, 420);
+    const radGrad = ctx.createRadialGradient(600, 350, 40, 600, 350, 450);
     radGrad.addColorStop(0, "rgba(229, 193, 88, 0.18)");
     radGrad.addColorStop(1, "rgba(229, 193, 88, 0)");
     ctx.fillStyle = radGrad;
-    ctx.fillRect(0, 0, 1200, 690);
+    ctx.fillRect(0, 0, 1200, 770);
 
     // Double Golden Border
     ctx.strokeStyle = "#e5c158";
     ctx.lineWidth = 3.5;
-    ctx.strokeRect(16, 16, 1168, 658);
+    ctx.strokeRect(16, 16, 1168, 738);
 
     ctx.strokeStyle = "rgba(229, 193, 88, 0.4)";
     ctx.lineWidth = 1.5;
-    ctx.strokeRect(26, 26, 1148, 638);
+    ctx.strokeRect(26, 26, 1148, 718);
 
     function drawCornerDiamond(x, y) {
         ctx.fillStyle = "#e5c158";
@@ -952,8 +991,8 @@ function downloadThreeCardsImage() {
     }
     drawCornerDiamond(26, 26);
     drawCornerDiamond(1174, 26);
-    drawCornerDiamond(26, 664);
-    drawCornerDiamond(1174, 664);
+    drawCornerDiamond(26, 744);
+    drawCornerDiamond(1174, 744);
 
     // Global Header
     ctx.textAlign = "center";
@@ -1136,18 +1175,35 @@ function downloadThreeCardsImage() {
         ctx.fillText(`🔢 เลขมงคล: ${card.luckyNumber}`, center, luckyBoxY + 56);
     });
 
-    // Global Footer
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#a89ec1";
+    // Global Footer with QR Code Container
+    const footerY = 650;
+    ctx.fillStyle = "rgba(10, 4, 20, 0.78)";
+    ctx.fillRect(60, footerY, 1080, 84);
+    ctx.strokeStyle = "rgba(229, 193, 88, 0.35)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(60, footerY, 1080, 84);
+
+    if (qrImg) {
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(1058, footerY + 5, 74, 74);
+        ctx.drawImage(qrImg, 1058, footerY + 5, 74, 74);
+    }
+
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#fdf0a6";
+    ctx.font = "bold 15px 'Prompt', sans-serif";
+    ctx.fillText("📱 สแกน QR Code เปิดไพ่ 3 กาลเวลาของคุณเองได้ที่นี่ (เล่นฟรี!) ➔", 84, footerY + 28);
+
+    ctx.fillStyle = "#c9bfe3";
     ctx.font = "12.5px 'Prompt', sans-serif";
-    ctx.fillText("✦ DooSi.BaRa — สำนักไพ่ทาโรต์สายมีม 2026 (ดวงนี้ขึ้นอยู่กับนิ้วที่เพื่อนจิ้มล้วนๆ) ✦", 600, 646);
+    ctx.fillText("🔮 DooSi.BaRa — สำนักไพ่ทาโรต์สายมีม 2026 • thanabara.github.io/DooSi (ดวงนี้ขึ้นอยู่กับนิ้วที่เพื่อนจิ้มล้วนๆ)", 84, footerY + 54);
 
     const link = document.createElement("a");
     link.download = `DooSiBaRa-3Cards-${Date.now()}.png`;
     link.href = canvas.toDataURL("image/png");
     link.click();
 
-    showToast("📸 บันทึกรูปการ์ดคำทำนาย 3 ใบรวมกันเรียบร้อย! ส่งให้เพื่อนได้เลย");
+    showToast("📸 บันทึกรูปการ์ดคำทำนาย 3 ใบพร้อม QR Code เรียบร้อย! ส่งให้เพื่อนได้เลย");
 }
 
 function downloadCardImage(cardIndex = null) {
@@ -1376,6 +1432,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 btnNavToggle?.setAttribute("aria-expanded", "false");
             }
             openGalleryModal();
+        });
+    }
+
+    // QR Code Modal (desktop & mobile)
+    const btnOpenQrModal = document.getElementById("btnOpenQrModal");
+    const btnOpenQrModalMobile = document.getElementById("btnOpenQrModalMobile");
+    const qrModal = document.getElementById("qrModal");
+    if (btnOpenQrModal && qrModal) {
+        btnOpenQrModal.addEventListener("click", () => qrModal.classList.add("open"));
+    }
+    if (btnOpenQrModalMobile && qrModal) {
+        btnOpenQrModalMobile.addEventListener("click", () => {
+            if (navMobileDropdown) {
+                navMobileDropdown.classList.remove("open");
+                btnNavToggle?.classList.remove("open");
+                btnNavToggle?.setAttribute("aria-expanded", "false");
+            }
+            qrModal.classList.add("open");
         });
     }
 

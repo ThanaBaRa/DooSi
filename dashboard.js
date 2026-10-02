@@ -577,6 +577,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // QR Code Modal open (desktop & mobile)
+    const btnOpenQrModal = document.getElementById("btnOpenQrModal");
+    const btnOpenQrModalMobile = document.getElementById("btnOpenQrModalMobile");
+    const qrModal = document.getElementById("qrModal");
+    if (btnOpenQrModal && qrModal) {
+        btnOpenQrModal.addEventListener("click", () => qrModal.classList.add("open"));
+    }
+    if (btnOpenQrModalMobile && qrModal) {
+        btnOpenQrModalMobile.addEventListener("click", () => {
+            if (navMobileDropdown) {
+                navMobileDropdown.classList.remove("open");
+                btnNavToggle?.classList.remove("open");
+                btnNavToggle?.setAttribute("aria-expanded", "false");
+            }
+            qrModal.classList.add("open");
+        });
+    }
+
     // Backdrop close
     document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
         backdrop.addEventListener("click", (e) => {
@@ -584,3 +602,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+let toastTimer = null;
+function showToast(msg) {
+    const toast = document.getElementById("mysticToast");
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3200);
+}

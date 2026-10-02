@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Cinzel+Decorative:wght@700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20261002_v15">
+    <link rel="stylesheet" href="styles.css?v=20261002_v17">
 
     <!-- Direct Fallback / Cache-Proof Essential Layout Styles -->
     <!-- Direct Fallback / Cache-Proof Essential Layout Styles -->
@@ -426,6 +426,9 @@
                 <button type="button" class="btn-pill" id="btnOpenGallery">
                     🃏 สำรวจไพ่ทั้งหมด (84+ ใบ)
                 </button>
+                <button type="button" class="btn-pill" id="btnOpenQrModal">
+                    📱 QR โค้ด
+                </button>
                 <button type="button" class="btn-pill sound-active" id="btnToggleSound">
                     <span class="bgm-wave-anim">🎶</span> <span id="soundBtnText">เพลง: เปิด</span>
                 </button>
@@ -446,6 +449,7 @@
                 <a href="reading.html?mode=money" class="dropdown-item">💸 หมวดการเงิน & งาน (12 ใบ)</a>
                 <div class="dropdown-divider"></div>
                 <button type="button" class="dropdown-item" id="btnOpenGalleryMobile">🃏 สำรวจไพ่ทั้งหมด (84+ ใบ)</button>
+                <button type="button" class="dropdown-item" id="btnOpenQrModalMobile">📱 สแกน QR Code เล่นบนมือถือ</button>
                 <button type="button" class="dropdown-item sound-active" id="btnToggleSoundMobile"><span class="bgm-wave-anim">🎶</span> เพลงบรรยากาศ: เปิด</button>
             </div>
         </nav>
@@ -765,10 +769,40 @@
         </div>
     </div>
 
+    <!-- Modal 3: Standalone QR Code for Mobile Play -->
+    <div class="modal-backdrop" id="qrModal" role="dialog" aria-modal="true">
+        <div class="modal-card" style="max-width:440px; text-align:center;">
+            <div class="modal-header">
+                <div class="modal-title">📱 สแกนเล่นบนมือถือ</div>
+                <button type="button" class="btn-close-modal" onclick="document.getElementById('qrModal').classList.remove('open')">✕</button>
+            </div>
+            <div style="padding:1.2rem 0.5rem 0.5rem;">
+                <div style="background:#ffffff; padding:12px; border-radius:18px; display:inline-block; box-shadow:0 0 30px rgba(229,193,88,0.45); margin-bottom:1rem;">
+                    <img src="qrcode.png" alt="DooSi.BaRa QR Code" style="width:210px; height:210px; display:block; border-radius:8px;">
+                </div>
+                <h3 style="color:var(--gold-light); font-size:1.15rem; margin-bottom:0.35rem; font-family:'Cinzel Decorative',serif;">DooSi.BaRa • ดูสิ.บาร่า</h3>
+                <p style="color:var(--text-muted); font-size:0.86rem; margin-bottom:1.25rem; line-height:1.5;">
+                    ยกกล้องมือถือขึ้นมาสแกน QR Code เพื่อเปิดไพ่ดูดวงสายมีมบนมือถือได้ทันที ไม่ต้องโหลดแอป!
+                </p>
+                <div style="display:flex; justify-content:center; gap:0.6rem; flex-wrap:wrap;">
+                    <a href="qrcode.png" download="DooSiBaRa-QRCode.png" class="btn-gold" style="text-decoration:none; font-size:0.88rem;">
+                        📥 ดาวน์โหลดรูป QR Code
+                    </a>
+                    <button type="button" class="btn-outline-gold" onclick="navigator.clipboard.writeText('https://thanabara.github.io/DooSi/'); showToast('📋 คัดลอกลิงก์เรียบร้อย!');" style="font-size:0.88rem;">
+                        🔗 คัดลอกลิงก์
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="mystic-toast" id="mysticToast" role="status" aria-live="polite"></div>
+
     <!-- Load Decks and Dashboard Controller -->
-    <script src="data/general.js?v=20261002_v15"></script>
-    <script src="data/love.js?v=20261002_v15"></script>
-    <script src="data/money.js?v=20261002_v15"></script>
-    <script src="dashboard.js?v=20261002_v15"></script>
+    <script src="data/general.js?v=20261002_v17"></script>
+    <script src="data/love.js?v=20261002_v17"></script>
+    <script src="data/money.js?v=20261002_v17"></script>
+    <script src="dashboard.js?v=20261002_v17"></script>
 </body>
 </html>
