@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Cinzel+Decorative:wght@700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20261002_v14">
+    <link rel="stylesheet" href="styles.css?v=20261002_v15">
     <style>
         .tarot-deck-grid {
             display: grid !important;
@@ -321,9 +321,10 @@
     <div class="app-wrapper">
         <!-- Top Navigation (Strict Single Row Desktop + Hamburger Mobile) -->
         <nav class="top-bar">
-            <!-- Left: Home Link with Mascot -->
+            <!-- Left: Brand / Home Link with Mascot -->
             <a href="index.html" class="top-nav-back-btn" title="กลับแดชบอร์ดหลัก">
                 <img src="icon.png" alt="DooSi.BaRa Mascot" class="brand-mascot-img">
+                <span>DooSi<span class="dot" style="color:var(--pink-accent);">.</span>BaRa</span>
                 <span class="back-text">← หน้าแรก</span>
             </a>
 
@@ -342,10 +343,10 @@
 
             <!-- Right (Desktop): Actions -->
             <div class="top-nav-utils">
-                <button type="button" class="nav-util-btn" id="btnOpenGallery">
+                <button type="button" class="btn-pill nav-util-btn" id="btnOpenGallery">
                     🃏 คลังไพ่
                 </button>
-                <button type="button" class="nav-util-btn sound-active" id="btnToggleSound">
+                <button type="button" class="btn-pill nav-util-btn sound-active" id="btnToggleSound">
                     <span class="bgm-wave-anim">🎶</span> <span id="soundBtnText">เพลง: เปิด</span>
                 </button>
             </div>
@@ -392,6 +393,9 @@
             <p class="site-subtitle" id="modeHeaderDesc">
                 ตั้งจิตอธิษฐานแล้วเปิดรับคำอวยพรและคำทำนายภาพรวมชีวิตประจำวัน จากวลีไวรัลแห่งปี 2026
             </p>
+            <div style="margin-top:0.85rem;">
+                <span class="badge-2026" id="activeModeBadge">🔮 กำลังโหลด...</span>
+            </div>
         </header>
 
         <!-- Altar Control Panel -->
@@ -496,9 +500,9 @@
     <div class="mystic-toast" id="mysticToast" role="status" aria-live="polite"></div>
 
     <!-- Load Dedicated Data Decks and Reading Engine -->
-    <script src="data/general.js?v=20261002_v14"></script>
-    <script src="data/love.js?v=20261002_v14"></script>
-    <script src="data/money.js?v=20261002_v14"></script>
-    <script src="reading.js?v=20261002_v14"></script>
+    <script src="data/general.js?v=20261002_v15"></script>
+    <script src="data/love.js?v=20261002_v15"></script>
+    <script src="data/money.js?v=20261002_v15"></script>
+    <script src="reading.js?v=20261002_v15"></script>
 </body>
 </html>

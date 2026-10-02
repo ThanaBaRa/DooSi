@@ -313,9 +313,12 @@ function setMode(modeKey) {
     currentMode = modeKey;
     const conf = MODE_CONFIG[modeKey];
 
-    document.getElementById("modeHeaderTitle").textContent = conf.title;
-    document.getElementById("modeHeaderDesc").textContent = conf.desc;
-    document.getElementById("activeModeBadge").textContent = conf.badge;
+    const titleEl = document.getElementById("modeHeaderTitle");
+    if (titleEl) titleEl.textContent = conf.title;
+    const descEl = document.getElementById("modeHeaderDesc");
+    if (descEl) descEl.textContent = conf.desc;
+    const badgeEl = document.getElementById("activeModeBadge");
+    if (badgeEl) badgeEl.textContent = conf.badge;
 
     document.querySelectorAll(".mode-pill-btn").forEach(btn => {
         const isActive = btn.dataset.targetMode === modeKey;
