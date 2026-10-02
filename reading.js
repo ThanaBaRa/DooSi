@@ -119,14 +119,26 @@ class MysticSoundEngine {
         }
     }
     updateUi() {
-        const btn = document.getElementById("btnToggleSound");
-        if (!btn) return;
-        if (this.soundEnabled) {
-            btn.innerHTML = `<span class="bgm-wave-anim">🎶</span> เพลงบรรยากาศ: เปิด`;
-            btn.classList.add("sound-active");
-        } else {
-            btn.innerHTML = `🔇 เพลงบรรยากาศ: ปิด`;
-            btn.classList.remove("sound-active");
+        const desktopBtn = document.getElementById("btnToggleSound");
+        const mobileBtn = document.getElementById("btnToggleSoundMobile");
+
+        if (desktopBtn) {
+            if (this.soundEnabled) {
+                desktopBtn.innerHTML = `<span class="bgm-wave-anim">🎶</span> <span id="soundBtnText">เพลง: เปิด</span>`;
+                desktopBtn.classList.add("sound-active");
+            } else {
+                desktopBtn.innerHTML = `🔇 <span id="soundBtnText">เพลง: ปิด</span>`;
+                desktopBtn.classList.remove("sound-active");
+            }
+        }
+        if (mobileBtn) {
+            if (this.soundEnabled) {
+                mobileBtn.innerHTML = `<span class="bgm-wave-anim">🎶</span> เพลงบรรยากาศ: เปิด`;
+                mobileBtn.classList.add("sound-active");
+            } else {
+                mobileBtn.innerHTML = `🔇 เพลงบรรยากาศ: ปิด`;
+                mobileBtn.classList.remove("sound-active");
+            }
         }
     }
     playTone(freq, type = "sine", duration = 0.25, delay = 0, gainVal = 0.08) {
@@ -306,7 +318,9 @@ function setMode(modeKey) {
     document.getElementById("activeModeBadge").textContent = conf.badge;
 
     document.querySelectorAll(".mode-pill-btn").forEach(btn => {
-        btn.classList.toggle("active-pill", btn.dataset.targetMode === modeKey);
+        const isActive = btn.dataset.targetMode === modeKey;
+        btn.classList.toggle("active-pill", isActive);
+        btn.classList.toggle("active", isActive);
     });
 
     state.cards = [...conf.deck];
@@ -1311,15 +1325,67 @@ document.addEventListener("DOMContentLoaded", () => {
     // Friend name live prompt
     document.getElementById("friendNameInput").addEventListener("input", updateOraclePrompt);
 
-    // Sound toggle
+    // Sound toggle (desktop & mobile)
     sound.updateUi();
     const soundBtn = document.getElementById("btnToggleSound");
-    soundBtn.addEventListener("click", () => {
-        sound.toggleSound();
-    });
+    if (soundBtn) {
+        soundBtn.addEventListener("click", () => {
+            sound.toggleSound();
+        });
+    }
+    const soundBtnMobile = document.getElementById("btnToggleSoundMobile");
+    if (soundBtnMobile) {
+        soundBtnMobile.addEventListener("click", () => {
+            sound.toggleSound();
+        });
+    }
 
-    // Gallery modal
-    document.getElementById("btnOpenGallery").addEventListener("click", openGalleryModal);
+    // Mobile Hamburger Dropdown Toggle
+    const btnNavToggle = document.getElementById("btnNavToggle");
+    const navMobileDropdown = document.getElementById("navMobileDropdown");
+    if (btnNavToggle && navMobileDropdown) {
+        btnNavToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isOpen = navMobileDropdown.classList.toggle("open");
+            btnNavToggle.classList.toggle("open", isOpen);
+            btnNavToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+        document.addEventListener("click", (e) => {
+            if (!navMobileDropdown.contains(e.target) && !btnNavToggle.contains(e.target)) {
+                navMobileDropdown.classList.remove("open");
+                btnNavToggle.classList.remove("open");
+                btnNavToggle.setAttribute("aria-expanded", "false");
+            }
+        });
+    }
+
+    // Gallery modal (desktop & mobile)
+    const btnOpenGallery = document.getElementById("btnOpenGallery");
+    if (btnOpenGallery) {
+        btnOpenGallery.addEventListener("click", openGalleryModal);
+    }
+    const btnOpenGalleryMobile = document.getElementById("btnOpenGalleryMobile");
+    if (btnOpenGalleryMobile) {
+        btnOpenGalleryMobile.addEventListener("click", () => {
+            if (navMobileDropdown) {
+                navMobileDropdown.classList.remove("open");
+                btnNavToggle?.classList.remove("open");
+                btnNavToggle?.setAttribute("aria-expanded", "false");
+            }
+            openGalleryModal();
+        });
+    }
+
+    // Close mobile dropdown when mode pill in dropdown is clicked
+    document.querySelectorAll(".dropdown-item.mode-pill-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (navMobileDropdown) {
+                navMobileDropdown.classList.remove("open");
+                btnNavToggle?.classList.remove("open");
+                btnNavToggle?.setAttribute("aria-expanded", "false");
+            }
+        });
+    });
 
     // Close modals on backdrop click
     document.querySelectorAll(".modal-backdrop").forEach(backdrop => {

@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Cinzel+Decorative:wght@700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20261002_v13">
+    <link rel="stylesheet" href="styles.css?v=20261002_v14">
 
     <!-- Direct Fallback / Cache-Proof Essential Layout Styles -->
     <!-- Direct Fallback / Cache-Proof Essential Layout Styles -->
@@ -122,9 +122,31 @@
             letter-spacing: 0.01em !important;
         }
 
-        /* Live Counter Strip Mobile & Desktop */
-        .live-counter-strip {
+        /* Hero 2026 Badge Row (Strict Separate Row) */
+        .hero-badge-wrap {
+            display: flex !important;
+            justify-content: center !important;
+            width: 100% !important;
+            margin: 0.85rem auto 1.15rem !important;
+        }
+        .badge-2026 {
             display: inline-flex !important;
+            align-items: center !important;
+            gap: 0.35rem !important;
+            margin: 0 !important;
+            padding: 0.3rem 0.95rem !important;
+            font-size: 0.78rem !important;
+            border-radius: 999px !important;
+            background: rgba(184, 107, 255, 0.18) !important;
+            border: 1px solid rgba(184, 107, 255, 0.45) !important;
+            color: #e5c8ff !important;
+            letter-spacing: 0.05em !important;
+            white-space: nowrap !important;
+        }
+
+        /* Live Counter Strip Mobile & Desktop (Strict Separate Row) */
+        .live-counter-strip {
+            display: flex !important;
             align-items: center !important;
             justify-content: center !important;
             gap: 1.15rem !important;
@@ -133,7 +155,8 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65), 0 0 25px rgba(184, 107, 255, 0.2) !important;
             border-radius: 999px !important;
             padding: 0.55rem 1.4rem !important;
-            margin: 1.25rem auto 0 !important;
+            margin: 0 auto !important;
+            width: fit-content !important;
             max-width: 900px !important;
             backdrop-filter: blur(12px) !important;
             white-space: nowrap !important;
@@ -163,27 +186,22 @@
                 padding: 1rem 0.85rem 3rem !important;
             }
             .top-bar {
-                border-radius: 18px !important;
-                padding: 0.65rem 0.85rem !important;
-                flex-direction: column !important;
-                align-items: stretch !important;
-                gap: 0.65rem !important;
-                margin-bottom: 1.25rem !important;
+                border-radius: 999px !important;
+                padding: 0.45rem 0.85rem !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                flex-wrap: nowrap !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .top-actions {
+                display: none !important;
+            }
+            .btn-hamburger {
+                display: flex !important;
             }
             .brand-mini {
-                justify-content: center !important;
-                font-size: 1rem !important;
-            }
-            .quick-nav-actions {
-                display: flex !important;
-                align-items: center !important;
-                gap: 0.45rem !important;
-                justify-content: center !important;
-            }
-            .btn-pill {
-                font-size: 0.8rem !important;
-                padding: 0.35rem 0.75rem !important;
-                white-space: nowrap !important;
+                font-size: 0.95rem !important;
             }
             .site-title {
                 font-size: clamp(2rem, 8vw, 2.8rem) !important;
@@ -394,23 +412,41 @@
     <canvas id="starfield"></canvas>
 
     <div class="app-wrapper">
-        <!-- Top Navigation Bar -->
+        <!-- Top Navigation Bar (Single Row Desktop + Hamburger Mobile) -->
         <nav class="top-bar">
-            <div class="brand-mini">
+            <a href="index.html" class="brand-mini">
                 <img src="icon.png" alt="DooSi.BaRa Mascot" class="brand-mascot-img">
                 <span>DooSi<span class="dot">.</span>BaRa</span>
-                <span style="font-family:'Prompt',sans-serif; font-size:0.8rem; color:var(--text-muted); font-weight:400;">(ดูสิ.บาร่า)</span>
-            </div>
+            </a>
+            
             <div class="top-actions">
-                <button type="button" class="btn-pill" id="btnOpenGallery">
-                    🃏 สำรวจไพ่ทั้งหมด (84+ ใบ)
-                </button>
                 <a href="reading.html?mode=general" class="btn-pill" style="text-decoration:none; color:var(--gold-light); font-weight:600;">
                     ✨ เข้าห้องทำนายทันที
                 </a>
-                <button type="button" class="btn-pill sound-active" id="btnToggleSound">
-                    <span class="bgm-wave-anim">🎶</span> เพลงบรรยากาศ: เปิด
+                <button type="button" class="btn-pill" id="btnOpenGallery">
+                    🃏 สำรวจไพ่ทั้งหมด (84+ ใบ)
                 </button>
+                <button type="button" class="btn-pill sound-active" id="btnToggleSound">
+                    <span class="bgm-wave-anim">🎶</span> <span id="soundBtnText">เพลง: เปิด</span>
+                </button>
+            </div>
+
+            <!-- Hamburger Button for Mobile -->
+            <button type="button" class="btn-hamburger" id="btnNavToggle" aria-label="เปิดเมนูนำทาง" aria-expanded="false">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+
+            <!-- Mobile Dropdown Menu -->
+            <div class="nav-mobile-dropdown" id="navMobileDropdown">
+                <div class="dropdown-header">🧭 ประตูเข้าห้องดูดวง:</div>
+                <a href="reading.html?mode=general" class="dropdown-item">🔮 หมวดทั่วไป & รายวัน (56 ใบ)</a>
+                <a href="reading.html?mode=love" class="dropdown-item">💘 หมวดความรัก & คนคุย (16 ใบ)</a>
+                <a href="reading.html?mode=money" class="dropdown-item">💸 หมวดการเงิน & งาน (12 ใบ)</a>
+                <div class="dropdown-divider"></div>
+                <button type="button" class="dropdown-item" id="btnOpenGalleryMobile">🃏 สำรวจไพ่ทั้งหมด (84+ ใบ)</button>
+                <button type="button" class="dropdown-item sound-active" id="btnToggleSoundMobile"><span class="bgm-wave-anim">🎶</span> เพลงบรรยากาศ: เปิด</button>
             </div>
         </nav>
 
@@ -424,9 +460,13 @@
             <p class="site-subtitle">
                 เว็บแอปพลิเคชันดูดวงสายมีมและคำอวยพรสุดปั่น สับไพ่วลีฮิตติดกระแสโซเชียลไทย ให้คุณและเพื่อนเลือกไพ่ด้วยนิ้วตัวเอง สัมผัสพลังงานจักรวาลทั้งสายอวยยศ สายเตือนสติ และสายแกงเพื่อน!
             </p>
-            <span class="badge-2026">⚡ THAI VIRAL TAROT 2026 EDITION • 3 INDEPENDENT DECKS</span>
 
-            <!-- Real-Time Live Player Counter Strip -->
+            <!-- Distinct Row 1: 2026 Edition Badge -->
+            <div class="hero-badge-wrap">
+                <span class="badge-2026">⚡ THAI VIRAL TAROT 2026 EDITION • 3 INDEPENDENT DECKS</span>
+            </div>
+
+            <!-- Distinct Row 2: Real-Time Live Player Counter Strip -->
             <div class="live-counter-strip" aria-label="สถิติผู้เปิดไพ่แบบเรียลไทม์">
                 <div class="live-counter-pill pulse-active">
                     <span class="live-pulse-dot" aria-hidden="true"></span>
@@ -726,9 +766,9 @@
     </div>
 
     <!-- Load Decks and Dashboard Controller -->
-    <script src="data/general.js?v=20261002_v13"></script>
-    <script src="data/love.js?v=20261002_v13"></script>
-    <script src="data/money.js?v=20261002_v13"></script>
-    <script src="dashboard.js?v=20261002_v13"></script>
+    <script src="data/general.js?v=20261002_v14"></script>
+    <script src="data/love.js?v=20261002_v14"></script>
+    <script src="data/money.js?v=20261002_v14"></script>
+    <script src="dashboard.js?v=20261002_v14"></script>
 </body>
 </html>

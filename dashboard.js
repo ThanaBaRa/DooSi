@@ -78,15 +78,20 @@ class DashboardSoundEngine {
         }
     }
     updateUi() {
-        const btn = document.getElementById("btnToggleSound");
-        if (!btn) return;
-        if (this.soundEnabled) {
-            btn.innerHTML = `<span class="bgm-wave-anim">🎶</span> เพลงบรรยากาศ: เปิด`;
-            btn.classList.add("sound-active");
-        } else {
-            btn.innerHTML = `🔇 เพลงบรรยากาศ: ปิด`;
-            btn.classList.remove("sound-active");
-        }
+        const btns = [
+            document.getElementById("btnToggleSound"),
+            document.getElementById("btnToggleSoundMobile")
+        ];
+        btns.forEach(btn => {
+            if (!btn) return;
+            if (this.soundEnabled) {
+                btn.innerHTML = `<span class="bgm-wave-anim">🎶</span> เพลงบรรยากาศ: เปิด`;
+                btn.classList.add("sound-active");
+            } else {
+                btn.innerHTML = `🔇 เพลงบรรยากาศ: ปิด`;
+                btn.classList.remove("sound-active");
+            }
+        });
     }
     playChime(freq = 587.33, type = "sine", duration = 0.3) {
         if (!this.soundEnabled) return;
@@ -477,12 +482,37 @@ document.addEventListener("DOMContentLoaded", () => {
     initStats();
     initPlayerCounter();
 
-    // Sound toggle
+    // Sound toggle (desktop & mobile)
     dashboardSound.updateUi();
     const btnSound = document.getElementById("btnToggleSound");
     if (btnSound) {
         btnSound.addEventListener("click", () => {
             dashboardSound.toggleSound();
+        });
+    }
+    const btnSoundMobile = document.getElementById("btnToggleSoundMobile");
+    if (btnSoundMobile) {
+        btnSoundMobile.addEventListener("click", () => {
+            dashboardSound.toggleSound();
+        });
+    }
+
+    // Mobile Hamburger Dropdown Toggle
+    const btnNavToggle = document.getElementById("btnNavToggle");
+    const navMobileDropdown = document.getElementById("navMobileDropdown");
+    if (btnNavToggle && navMobileDropdown) {
+        btnNavToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isOpen = navMobileDropdown.classList.toggle("open");
+            btnNavToggle.classList.toggle("open", isOpen);
+            btnNavToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+        document.addEventListener("click", (e) => {
+            if (!navMobileDropdown.contains(e.target) && !btnNavToggle.contains(e.target)) {
+                navMobileDropdown.classList.remove("open");
+                btnNavToggle.classList.remove("open");
+                btnNavToggle.setAttribute("aria-expanded", "false");
+            }
         });
     }
 
@@ -496,11 +526,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Gallery Modal open
+    // Gallery Modal open (desktop & mobile)
     const btnOpenGallery = document.getElementById("btnOpenGallery");
+    const btnOpenGalleryMobile = document.getElementById("btnOpenGalleryMobile");
     const galleryModal = document.getElementById("galleryModal");
     if (btnOpenGallery && galleryModal) {
         btnOpenGallery.addEventListener("click", () => {
+            galleryModal.classList.add("open");
+            renderGalleryCards();
+        });
+    }
+    if (btnOpenGalleryMobile && galleryModal) {
+        btnOpenGalleryMobile.addEventListener("click", () => {
+            if (navMobileDropdown) {
+                navMobileDropdown.classList.remove("open");
+                btnNavToggle?.classList.remove("open");
+                btnNavToggle?.setAttribute("aria-expanded", "false");
+            }
             galleryModal.classList.add("open");
             renderGalleryCards();
         });

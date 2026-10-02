@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Cinzel+Decorative:wght@700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20261002_v13">
+    <link rel="stylesheet" href="styles.css?v=20261002_v14">
     <style>
         .tarot-deck-grid {
             display: grid !important;
@@ -205,30 +205,19 @@
                 padding: 1rem 0.85rem 3rem !important;
             }
             .top-bar {
-                border-radius: 18px !important;
-                padding: 0.65rem 0.85rem !important;
-                flex-direction: column !important;
-                align-items: stretch !important;
-                gap: 0.65rem !important;
-                margin-bottom: 1.25rem !important;
-            }
-            .top-actions {
-                display: flex !important;
+                border-radius: 999px !important;
+                padding: 0.45rem 0.85rem !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
                 align-items: center !important;
-                gap: 0.45rem !important;
-                overflow-x: auto !important;
-                -webkit-overflow-scrolling: touch !important;
-                padding-bottom: 2px !important;
-                scrollbar-width: none !important;
+                flex-wrap: nowrap !important;
+                margin-bottom: 1.5rem !important;
             }
-            .top-actions::-webkit-scrollbar {
+            .top-nav-modes, .top-nav-utils {
                 display: none !important;
             }
-            .top-actions .btn-pill {
-                flex-shrink: 0 !important;
-                white-space: nowrap !important;
-                font-size: 0.8rem !important;
-                padding: 0.35rem 0.75rem !important;
+            .btn-hamburger {
+                display: flex !important;
             }
             .altar-panel {
                 padding: 1.25rem 1rem !important;
@@ -330,34 +319,66 @@
     <canvas id="starfield"></canvas>
 
     <div class="app-wrapper">
-        <!-- Top Navigation -->
+        <!-- Top Navigation (Strict Single Row Desktop + Hamburger Mobile) -->
         <nav class="top-bar">
-            <div style="display:flex; align-items:center; justify-content:space-between; width:100%; gap:0.6rem; flex-wrap:wrap;">
-                <a href="index.html" class="btn-pill" style="text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:0.45rem;">
-                    <img src="icon.png" alt="DooSi.BaRa Mascot" style="width:22px; height:22px; border-radius:50%; object-fit:cover; border:1px solid var(--gold-light);">
-                    ← กลับแดชบอร์ดหลัก
-                </a>
-                <span class="badge-general" id="activeModeBadge" style="padding:0.35rem 0.85rem; border-radius:999px; font-size:0.8rem; font-weight:600; white-space:nowrap;">
-                    🔮 กำลังโหลด...
-                </span>
-            </div>
+            <!-- Left: Home Link with Mascot -->
+            <a href="index.html" class="top-nav-back-btn" title="กลับแดชบอร์ดหลัก">
+                <img src="icon.png" alt="DooSi.BaRa Mascot" class="brand-mascot-img">
+                <span class="back-text">← หน้าแรก</span>
+            </a>
 
-            <div class="top-actions">
-                <button type="button" class="btn-pill mode-pill-btn" data-target-mode="general">
-                    🔮 หมวดทั่วไป
+            <!-- Center (Desktop): Mode Switchers -->
+            <div class="top-nav-modes" role="tablist">
+                <button type="button" class="nav-mode-chip mode-pill-btn" data-target-mode="general">
+                    🔮 ทั่วไป
                 </button>
-                <button type="button" class="btn-pill mode-pill-btn" data-target-mode="love">
+                <button type="button" class="nav-mode-chip mode-pill-btn" data-target-mode="love">
                     💘 ความรัก
                 </button>
-                <button type="button" class="btn-pill mode-pill-btn" data-target-mode="money">
+                <button type="button" class="nav-mode-chip mode-pill-btn" data-target-mode="money">
                     💸 การเงิน
                 </button>
-                <button type="button" class="btn-pill" id="btnOpenGallery">
-                    🃏 ดูไพ่ทั้งหมด
+            </div>
+
+            <!-- Right (Desktop): Actions -->
+            <div class="top-nav-utils">
+                <button type="button" class="nav-util-btn" id="btnOpenGallery">
+                    🃏 คลังไพ่
                 </button>
-                <button type="button" class="btn-pill sound-active" id="btnToggleSound">
+                <button type="button" class="nav-util-btn sound-active" id="btnToggleSound">
+                    <span class="bgm-wave-anim">🎶</span> <span id="soundBtnText">เพลง: เปิด</span>
+                </button>
+            </div>
+
+            <!-- Hamburger Button for Mobile -->
+            <button type="button" class="btn-hamburger" id="btnNavToggle" aria-label="เปิดเมนูนำทาง" aria-expanded="false">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+
+            <!-- Mobile Dropdown Menu -->
+            <div class="nav-mobile-dropdown" id="navMobileDropdown">
+                <div class="dropdown-header">🧭 สลับหมวดทำนาย:</div>
+                <button type="button" class="dropdown-item mode-pill-btn" data-target-mode="general">
+                    🔮 หมวดทั่วไป & รายวัน (56 ใบ)
+                </button>
+                <button type="button" class="dropdown-item mode-pill-btn" data-target-mode="love">
+                    💘 หมวดความรัก & คนคุย (16 ใบ)
+                </button>
+                <button type="button" class="dropdown-item mode-pill-btn" data-target-mode="money">
+                    💸 หมวดการเงิน & งาน (12 ใบ)
+                </button>
+                <div class="dropdown-divider"></div>
+                <button type="button" class="dropdown-item" id="btnOpenGalleryMobile">
+                    🃏 สำรวจไพ่ทั้งหมดในหมวดนี้
+                </button>
+                <button type="button" class="dropdown-item sound-active" id="btnToggleSoundMobile">
                     <span class="bgm-wave-anim">🎶</span> เพลงบรรยากาศ: เปิด
                 </button>
+                <a href="index.html" class="dropdown-item" style="text-decoration:none; color:var(--gold-light);">
+                    🏠 กลับแดชบอร์ดหน้าแรก
+                </a>
             </div>
         </nav>
 
@@ -475,9 +496,9 @@
     <div class="mystic-toast" id="mysticToast" role="status" aria-live="polite"></div>
 
     <!-- Load Dedicated Data Decks and Reading Engine -->
-    <script src="data/general.js?v=20261002_v13"></script>
-    <script src="data/love.js?v=20261002_v13"></script>
-    <script src="data/money.js?v=20261002_v13"></script>
-    <script src="reading.js?v=20261002_v13"></script>
+    <script src="data/general.js?v=20261002_v14"></script>
+    <script src="data/love.js?v=20261002_v14"></script>
+    <script src="data/money.js?v=20261002_v14"></script>
+    <script src="reading.js?v=20261002_v14"></script>
 </body>
 </html>
